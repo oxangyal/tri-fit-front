@@ -45,4 +45,3 @@ Race, Title, timeOfCompletion, Location, Date, Notes
 <h1>Technologies Used</h1>
 
 <p>Front-end (React.js, Figma, Tailwind)
-Back-end (Node.js, MongoDB, Express, Postman for testing).</p>
