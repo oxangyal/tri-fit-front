@@ -7,13 +7,12 @@ const About = () => {
                 <h1 className="text-lg md:text-5xl lg:text-6xl font-bold mb-4 text-blue-500">
                     Tri Fit
                 </h1>
-                <p className="text-gray-500 text-custon-font md:text-xl lg:text-2xl font-nunito">
-                    Stay fit for your upcoming events! Tri Fit is your ultimate
-                    destination for fitness and training. Whether you're a
+                <div className="text-white text-2xl md:text-4xl lg:text-2xl font-nunito">
+                    Stay fit for your upcoming events! <strong>Tri Fit</strong> is your ultimate destination for fitness and training. Whether you're a
                     swimmer, cyclist, or runner, we've got you covered. Join us
                     on the journey to a healthier lifestyle and peak
                     performance.
-                </p>
+                </div>
             </div>
         </div>
     );
