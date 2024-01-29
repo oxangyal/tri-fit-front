@@ -43,7 +43,7 @@ const Footer = () => {
                     />
                 </a>
             </div>
-            <p className="text-sm mt-4">
+            <p className="text-sm mt-4 font-nunito">
                 &copy; {currentYear} Oxana Michkasova. All rights reserved.
             </p>
         </footer>
