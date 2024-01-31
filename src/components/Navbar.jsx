@@ -14,15 +14,17 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="bg-151c1e text-white text-xl p-6 font-nunito">
+            <nav className="bg-151c1e text-white text-base p-4 font-nunito">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
                         <img
                             src={Logo}
                             alt="Logo icon"
-                            className="w-28 h-28 mr-6"
+                            className="w-12 h-12 mr-6"
                         />
-                        <span className="text-2xl font-bold">Tri Fit</span>
+                        <span className="text-blue-500 text-2xl font-bold">
+                            Tri Fit
+                        </span>
                     </div>
                     <div className="lg:hidden">
                         {/* Show only on small screens */}
@@ -54,21 +56,33 @@ const Navbar = () => {
                         {/* Show on large screens and mobile */}
                         <Link
                             to="/"
-                            className="text-white text-2xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
                         >
                             Home
                         </Link>
                         <Link
                             to="/about"
-                            className="text-white text-2xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
                         >
                             About
                         </Link>
                         <Link
-                            to="/workout"
-                            className="text-white text-2xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
+                            to="/createworkout"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
+                        >
+                            Create workout
+                        </Link>
+                        <Link
+                            to="/workouts"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
                         >
                             Workouts
+                        </Link>
+                        <Link
+                            to="/calendar"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-800 transition duration-300"
+                        >
+                            Calendar
                         </Link>
                         {/* <Link
                             to="/register"
@@ -82,7 +96,7 @@ const Navbar = () => {
                         </Link> */}
                         <Link
                             to="/auth"
-                            className={`text-white text-2xl px-4 py-2 font-bold rounded ${
+                            className={`text-white text-xl px-4 py-2 font-bold rounded hover:bg-gray-800  ${
                                 menuOpen
                                     ? "bg-custom-color"
                                     : "bg-blue-500 hover:bg-blue-500"

@@ -7,7 +7,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-gradient-to-t from-custom-color  to-blue-500 text-white py-6 text-center">
+        <footer className="bg-gradient-to-t from-custom-color  to-blue-500 text-white py-2 text-center">
             <div className="flex justify-center items-center space-x-4">
                 <a
                     href="https://www.instagram.com/angeleyelive"
@@ -17,7 +17,7 @@ const Footer = () => {
                     <img
                         src={iconInstagram}
                         alt="Instagram icon"
-                        className="h-12 w-12 hover:opacity-55"
+                        className="h-8 w-8 hover:opacity-55"
                     />
                 </a>
                 <a
@@ -28,7 +28,7 @@ const Footer = () => {
                     <img
                         src={iconLinkdin}
                         alt="LinkedIn icon"
-                        className="h-12 w-12 hover:opacity-55"
+                        className="h-8 w-8 hover:opacity-55"
                     />
                 </a>
                 <a
@@ -39,7 +39,7 @@ const Footer = () => {
                     <img
                         src={iconGithub}
                         alt="GitHub icon"
-                        className="h-12 w-12 hover:opacity-55"
+                        className="h-8 w-8 hover:opacity-55"
                     />
                 </a>
             </div>
