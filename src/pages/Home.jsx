@@ -32,8 +32,8 @@ const Home = () => {
 
     const buttonStyles = {
         position: "absolute",
-        bottom: "50%", 
-        left: "90%", 
+        bottom: "70%", 
+        left: "80%", 
         transform: "translateX(-140%)",
         zIndex: 2,
     };
@@ -46,7 +46,7 @@ const Home = () => {
             <div className="shadow-md" style={backgroundStyles}></div>
             <div style={overlayStyles}></div>
             <div style={{ zIndex: 3 }}>
-                <div className="text-white md:text-3xl lg:text-5xl ml-auto mt-20 font-bold font-nunito">
+                <div className="text-white md:text-4xl lg:text-5xl sm:text-3xl ml-auto mt-20 font-bold font-nunito">
                     Stay fit for your upcoming triathlon events with{" "}
                     <span className="text-blue-500  md:text-3xl lg:text-5xl font-bold mb-20">
                         {" "}
@@ -54,7 +54,7 @@ const Home = () => {
                     </span>{" "}
                 </div>
                 <button
-                    className="bg-blue-500 text-white text-2xl font-bold py-4 px-8 rounded-full font-nunito"
+                    className="bg-blue-500 text-white text-xl font-bold py-4 px-10  hover:bg-gray-700  rounded-full font-nunito"
                     style={buttonStyles}
                 >
                     <Link to="/auth">Get started</Link>

@@ -6,6 +6,7 @@ module.exports = {
             backgroundColor: {
                 "151c1e": "#151c1e",
                 "0e6072": "#0e6072",
+                "1E324C": "#1E324C",
             },
             fontFamily: {
                 nunito: ["Nunito", "sans-serif"],
@@ -15,9 +16,7 @@ module.exports = {
             },
             text: {
                 "custom-font": ["50px"],
-      },
-
-            
+            },
         },
     },
     plugins: [],
