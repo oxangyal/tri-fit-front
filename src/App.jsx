@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import About from "./pages/About";
 import Auth from "./pages/Auth";
-import CalendarWorkouts from "./pages/CalendarWorkouts";
+import Calendar from "./pages/Calendar";
 import CreateRace from "./pages/CreateRace.jsx";
 import CreateWorkout from "./pages/CreateWorkout";
 import Footer from "./components/Footer";
@@ -28,7 +28,7 @@ const App = () => {
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/workouts" element={<Workouts />} />
                     <Route path="/races" element={<Races />} />
-                    <Route path="/calendar" element={<CalendarWorkouts />} />
+                    <Route path="/calendar" element={<Calendar />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     {/* <Route path="/update" element={<UpdateWorkout />} /> */}
