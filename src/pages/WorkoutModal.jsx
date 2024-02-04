@@ -1,11 +1,41 @@
 import React from "react";
+import axios from "axios";
+import closeIcon from "../assets/closeicon.png";
+import deleteModal from "../assets/deletemodal.png";
+import editModal from "../assets/editmodal.png";
 
-const WorkoutModal = ({ event, onClose }) => {
+const WorkoutModal = ({ event, onClose, onUpdate }) => {
     const formattedDate = new Date(event.date).toLocaleDateString("en-US");
 
+    const handleDelete = async () => {
+        try {
+            const jwtToken = localStorage.getItem("jwtToken");
+            const workoutId = event.id;
+            await axios.delete(
+                `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/${workoutId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${jwtToken}`,
+                    },
+                }
+            );
+
+            onClose();
+        } catch (error) {
+            console.error("Error deleting workout:", error);
+        }
+    };
+
     return (
-        <div className="bg-gradient-to-b from-custom-color to-green-300 p-4 text-white bg-white border-t border-gray-300 z-10">
-            <div className="max-w-screen-md mx-auto p-4 rounded-2xl shadow-xl">
+        <div className="bg-298984 p-4 text-white border-t border-gray-300 z-10 relative">
+            <img
+                src={closeIcon}
+                alt="Close"
+                className="absolute top-6 right-12 cursor-pointer w-8 h-8"
+                onClick={onClose}
+            />
+
+            <div className="max-w-screen-md mx-auto p-4 rounded-3xl shadow-xl">
                 <h2 className="text-lg font-bold mb-2">
                     {event.title.toUpperCase()}
                 </h2>
@@ -16,12 +46,24 @@ const WorkoutModal = ({ event, onClose }) => {
                 </p>
                 <p className="mb-2">Date: {formattedDate}</p>
                 <p>Description: {event.description}</p>
-                <button
-                    className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    onClick={onClose}
-                >
-                    Close
-                </button>
+
+                {/* Edit and Delete icons */}
+                <div className="flex justify-between items-center mt-4">
+                    <div className="flex">
+                        <img
+                            src={editModal}
+                            alt="Edit"
+                            className="cursor-pointer w-8 h-8 mr-2"
+                            // onClick={onUpdate}
+                        />
+                        <img
+                            src={deleteModal}
+                            alt="Delete"
+                            className="cursor-pointer w-8 h-8"
+                            onClick={handleDelete}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

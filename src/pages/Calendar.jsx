@@ -31,7 +31,7 @@ const CalendarWorkouts = () => {
 
                 const workoutEvents = workoutResponse.data.workouts.map(
                     (workout) => ({
-                        id: workout.id,
+                        id: workout._id,
                         title: workout.workoutType,
                         start: new Date(workout.date),
                         end: moment(workout.date)
@@ -47,7 +47,7 @@ const CalendarWorkouts = () => {
                 );
 
                 const raceEvents = raceResponse.data.races.map((race) => ({
-                    id: race.id,
+                    id: race._id,
                     race: race.race,
                     title: race.title,
                     start: new Date(race.date),
@@ -61,6 +61,7 @@ const CalendarWorkouts = () => {
                     type: "race",
                 }));
 
+                console.log(raceEvents);
 
                 setEvents([...workoutEvents, ...raceEvents]);
             } catch (error) {
@@ -73,18 +74,19 @@ const CalendarWorkouts = () => {
         fetchEvents();
     }, []);
 
-const eventStyleGetter = (event, isSelected) => {
-    const backgroundColor = event.type === "workout" ? "#30951f" : "#542c81";
-    const borderColor = isSelected ? "#fff" : "transparent";
-    const textColor = isSelected ? "#fff" : "#000";
-    return {
-        style: {
-            backgroundColor,
-            borderColor,
-            color: textColor,
-        },
+    const eventStyleGetter = (event, isSelected) => {
+        const backgroundColor =
+            event.type === "workout" ? "#298984" : "#74629B";
+        const borderColor = isSelected ? "#fff" : "transparent";
+        const textColor = isSelected ? "#fff" : "#000";
+        return {
+            style: {
+                backgroundColor,
+                borderColor,
+                color: textColor,
+            },
+        };
     };
-};
 
     const CustomEvent = ({ event }) => (
         <div>
