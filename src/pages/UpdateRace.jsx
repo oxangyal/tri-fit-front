@@ -1,49 +1,55 @@
 import * as Yup from "yup";
 
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
-import React from "react";
 import axios from "axios";
+import moment from "moment";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 
-const CreateRace = () => {
+const UpdateRace = () => {
+    const { raceId } = useParams();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     const formik = useFormik({
         initialValues: {
             race: "",
             title: "",
             timeOfCompletion: {
-                hours: 0,
-                minutes: 0,
+                hours: "",
+                minutes: "",
             },
-            date: "",
             location: {
                 city: "",
                 state: "",
             },
+            date: "",
         },
         validationSchema: Yup.object({
             race: Yup.string().required("Race is required"),
             title: Yup.string().required("Title is required"),
-            timeOfCompletion: Yup.object().shape({
-                hours: Yup.number().min(0),
+            timeOfCompletion: Yup.object({
+                hours: Yup.number()
+                    .integer("Hours must be an integer")
+                    .required("Hours is required"),
                 minutes: Yup.number()
-                    .min(0)
-                    .max(59),
+                    .integer("Minutes must be an integer")
+                    .required("Minutes is required"),
+            }),
+            location: Yup.object({
+                city: Yup.string().required("City is required"),
+                state: Yup.string().required("State is required"),
             }),
             date: Yup.date().required("Date is required"),
-            location: Yup.object().shape({
-                city: Yup.string(),
-                state: Yup.string(),
-            }),
         }),
         onSubmit: async (values) => {
             try {
                 const jwtToken = localStorage.getItem("jwtToken");
-                const response = await axios.post(
-                    `${process.env.REACT_APP_BASE_URL}/api/v1/races`,
+
+                await axios.patch(
+                    `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
                     values,
                     {
                         headers: {
@@ -53,8 +59,7 @@ const CreateRace = () => {
                     }
                 );
 
-                console.log(response.data.race);
-                toast.success("Your race was successfully created!", {
+                toast.success("Your race was successfully updated!", {
                     position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -62,11 +67,10 @@ const CreateRace = () => {
                     pauseOnHover: true,
                     draggable: true,
                 });
-                await new Promise((resolve) => setTimeout(resolve, 1500));
 
                 navigate("/calendar");
             } catch (error) {
-                toast.error("Error creating race. Please try again.", {
+                toast.error("Error updating race. Please try again.", {
                     position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -74,18 +78,75 @@ const CreateRace = () => {
                     pauseOnHover: true,
                     draggable: true,
                 });
-                console.error("Error creating race:", error);
+                console.error("Error updating race:", error);
             }
         },
     });
+
+    const fetchRaceDetails = async () => {
+        try {
+            const jwtToken = localStorage.getItem("jwtToken");
+
+            const response = await axios.get(
+                `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${jwtToken}`,
+                    },
+                }
+            );
+
+            const raceDetails = response.data.race;
+
+            if (raceDetails) {
+                const formattedDate = moment(raceDetails.date).format(
+                    "YYYY-MM-DD"
+                );
+                formik.setValues({
+                    race: raceDetails.race,
+                    title: raceDetails.title,
+                    timeOfCompletion: {
+                        hours: raceDetails.timeOfCompletion
+                            ? raceDetails.timeOfCompletion.hours
+                            : "",
+                        minutes: raceDetails.timeOfCompletion
+                            ? raceDetails.timeOfCompletion.minutes
+                            : "",
+                    },
+                    location: {
+                        city: raceDetails.location
+                            ? raceDetails.location.city
+                            : "",
+                        state: raceDetails.location
+                            ? raceDetails.location.state
+                            : "",
+                    },
+                    date: formattedDate,
+                });
+
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error("Error fetching race details:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchRaceDetails();
+    }, []);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
             <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
                 <h2 className="text-2xl font-bold text-white mb-8 text-center font-nunito">
-                    Create Race
+                    Update Race
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
+                    {/* Race */}
                     <div className="mb-4">
                         <label
                             className="block font-bold text-white mb-2 text-xl font-nunito"
@@ -100,16 +161,12 @@ const CreateRace = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.race}
                             className="form-input pl-3 w-full h-10 mb-5 rounded-md"
-                            required
                         >
-                            <option value="" disabled>
-                                Select Race
-                            </option>
+                            <option value="" disabled></option>
                             <option value="sprint">Sprint</option>
                             <option value="olympic">Olympic</option>
                             <option value="duathlon">Duathlon</option>
                             <option value="aquathon">Aquathon</option>
-                            <option value="full">Full</option>
                             <option value="full">Full</option>
                         </select>
                         {formik.touched.race && formik.errors.race && (
@@ -119,6 +176,7 @@ const CreateRace = () => {
                         )}
                     </div>
 
+                    {/* Title*/}
                     <div className="mb-4">
                         <label
                             className="block font-bold text-white mb-2 text-xl font-nunito"
@@ -138,7 +196,6 @@ const CreateRace = () => {
                                     ? "border-red-500"
                                     : ""
                             }`}
-                            required
                         />
                         {formik.touched.title && formik.errors.title && (
                             <p className="text-red-500 text-xs mt-1">
@@ -147,6 +204,7 @@ const CreateRace = () => {
                         )}
                     </div>
 
+                    {/* Performance Time of Completion */}
                     <div className="mb-4 flex">
                         <div className="mr-4">
                             <label
@@ -168,7 +226,6 @@ const CreateRace = () => {
                                         ? "border-red-500"
                                         : ""
                                 }`}
-                                required
                             />
                             {formik.touched.timeOfCompletion?.hours &&
                                 formik.errors.timeOfCompletion?.hours && (
@@ -197,7 +254,6 @@ const CreateRace = () => {
                                         ? "border-red-500"
                                         : ""
                                 }`}
-                                required
                             />
                             {formik.touched.timeOfCompletion?.minutes &&
                                 formik.errors.timeOfCompletion?.minutes && (
@@ -208,6 +264,7 @@ const CreateRace = () => {
                         </div>
                     </div>
 
+                    {/* Location */}
                     <div className="mb-4 flex">
                         <div className="mr-4">
                             <label
@@ -267,6 +324,7 @@ const CreateRace = () => {
                         </div>
                     </div>
 
+                    {/* Date */}
                     <div className="mb-4">
                         <label
                             className="block font-bold text-white mb-2 text-xl font-nunito"
@@ -282,7 +340,6 @@ const CreateRace = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.date}
                             className="form-input w-full pl-3 pr-3 h-10 mb-5 rounded-md"
-                            required
                         />
                         {formik.touched.date && formik.errors.date && (
                             <p className="text-red-500 text-xs mt-1">
@@ -291,11 +348,12 @@ const CreateRace = () => {
                         )}
                     </div>
 
+                    {/* Submit  */}
                     <button
                         type="submit"
                         className="bg-blue-500 text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
                     >
-                        Create
+                        Update
                     </button>
                 </form>
                 <ToastContainer
@@ -314,4 +372,4 @@ const CreateRace = () => {
     );
 };
 
-export default CreateRace;
+export default UpdateRace;

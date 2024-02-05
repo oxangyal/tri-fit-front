@@ -8,9 +8,12 @@ import WorkoutModal from "./WorkoutModal";
 import axios from "axios";
 import moment from "moment";
 
+// import { useRaceData } from "./context/RaceDataContext";
+
 const localizer = momentLocalizer(moment);
 
 const CalendarWorkouts = () => {
+    // const { raceData, updateRaceData } = useRaceData();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
@@ -55,15 +58,16 @@ const CalendarWorkouts = () => {
                         .add(race.timeOfCompletion.hours, "hours")
                         .add(race.timeOfCompletion.minutes, "minutes")
                         .toDate(),
-                    duration: `${race.timeOfCompletion.hours}h ${race.timeOfCompletion.minutes}m`,
+                    timeOfCompletion: `${race.timeOfCompletion.hours}h ${race.timeOfCompletion.minutes}m`,
                     location: `${race.location.city}, ${race.location.state}`,
                     date: race.date,
                     type: "race",
                 }));
 
-                console.log(raceEvents);
+                // console.log(raceEvents);
 
-                setEvents([...workoutEvents, ...raceEvents]);
+        setEvents([...workoutEvents, ...raceEvents]);
+                // updateRaceData([...workoutEvents, ...raceEvents]);
             } catch (error) {
                 console.error("Error fetching events:", error);
             } finally {
@@ -96,6 +100,7 @@ const CalendarWorkouts = () => {
 
     const handleEventClick = (event) => {
         setSelectedEvent(event);
+        console.log(event)
         setModalVisible(true);
     };
 

@@ -3,14 +3,19 @@ import axios from "axios";
 import closeModal from "../assets/closeicon.png";
 import deleteModal from "../assets/deletemodal.png";
 import editModal from "../assets/editmodal.png";
+import { useNavigate } from "react-router-dom";
 
-const RaceModal = ({ event, onClose, onUpdate }) => {
+// import { useRaceData } from "./context/RaceDataContext";
+
+const RaceModal = ({ event, onClose }) => {
+    const navigate = useNavigate();
     const formattedDate = new Date(event.date).toLocaleDateString("en-US");
 
     const handleDelete = async () => {
         try {
             const jwtToken = localStorage.getItem("jwtToken");
             const raceId = event.id;
+            console.log(event.id, event)
             await axios.delete(
                 `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
                 {
@@ -23,6 +28,12 @@ const RaceModal = ({ event, onClose, onUpdate }) => {
         } catch (error) {
             console.error("Error deleting race:", error);
         }
+    };
+
+
+    const handleUpdate = () => {
+        
+        navigate(`/races/${event.id}`);
     };
 
     return (
@@ -40,28 +51,27 @@ const RaceModal = ({ event, onClose, onUpdate }) => {
                     </h2>
                     <p className="mb-2">Title: {event.title.toUpperCase()}</p>
                     <p className="mb-2">
-                        Performance: {event.duration.hours}h{" "}
-                        {event.duration.minutes}m
+                        Performance: {event.timeOfCompletion}
                     </p>
                     <p className="mb-2">Location: {event.location}</p>
                     <p className="mb-2">Date: {formattedDate}</p>
 
-    <div className="flex justify-between items-center mt-4">
-        <div className="flex">
-            <img
-                src={editModal}
-                alt="Edit"
-                className="cursor-pointer w-8 h-8 mr-2"
-                onClick={onUpdate}
-            />
-            <img
-                src={deleteModal}
-                alt="Delete"
-                className="cursor-pointer w-8 h-8"
-                onClick={handleDelete}
-            />
-        </div>
-    </div>
+                    <div className="flex justify-between items-center mt-4">
+                        <div className="flex">
+                            <img
+                                src={editModal}
+                                alt="Edit"
+                                className="cursor-pointer w-8 h-8 mr-2"
+                                onClick={handleUpdate}
+                            />
+                            <img
+                                src={deleteModal}
+                                alt="Delete"
+                                className="cursor-pointer w-8 h-8"
+                                onClick={handleDelete}
+                            />
+                        </div>
+                    </div>
                     {/* <div className="flex justify-between items-center mt-4">
                         <div className="flex">
                             {/* <button
@@ -70,13 +80,13 @@ const RaceModal = ({ event, onClose, onUpdate }) => {
                             >
                                 Update
                             </button> */}
-                            {/* <button
+                    {/* <button
                             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                             onClick={handleDelete}
                         >
                             Delete
                         </button> */}
-                            {/* <img
+                    {/* <img
                                 src={editModal}
                                 alt="Edit"
                                 className="top-8 left-55 cursor-pointer w-8 h-8"
@@ -90,17 +100,17 @@ const RaceModal = ({ event, onClose, onUpdate }) => {
                                 onClick={handleDelete}
                             />
                         </div> */}
-                        {/* <button
+                    {/* <button
                         className="ml-2 bg-violet-900 text-white px-4 py-2 rounded hover:bg-yellow-600"
                         onClick={onClose}
                     >
                         Close
                     </button> */}
-                    {/* </div> */} 
                     {/* </div> */}
-            </div></div>
-    </div>
-
+                    {/* </div> */}
+                </div>
+            </div>
+        </div>
     );
 };
 
