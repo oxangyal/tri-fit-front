@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import { useFormik } from "formik";
+import closeIcon from "../assets/closeicon.png";
 
 const UpdateRace = () => {
     const { raceId } = useParams();
@@ -139,17 +140,34 @@ const UpdateRace = () => {
         return <p>Loading...</p>;
     }
 
+
+    const handleClose = () => {
+        navigate("/calendar");
+    };
+    
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
-            <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
-                <h2 className="text-2xl font-bold text-white mb-8 text-center font-nunito">
-                    Update Race
+            <div className="bg-gradient-to-t from-custom-color to-custom-color3 p-8 rounded-xl shadow-md max-w-md w-full">
+                <div className="flex justify-end">
+                    <button
+                        onClick={handleClose}
+                        className="text-white text-2xl cursor-pointer flex flex-row-reverse"
+                    >
+                        <img
+                            src={closeIcon}
+                            alt="close icon"
+                            className="text-white text-2xl w-8 h-8"
+                        />
+                    </button>
+                </div>
+                <h2 className="text-xl font-bold text-white mb-8 text-center font-nunito">
+                    Update your race
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
                     {/* Race */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block text-white mb-2 text-lg font-nunito"
                             htmlFor="race"
                         >
                             Race
@@ -179,7 +197,7 @@ const UpdateRace = () => {
                     {/* Title*/}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="title"
                         >
                             Title
@@ -208,7 +226,7 @@ const UpdateRace = () => {
                     <div className="mb-4 flex">
                         <div className="mr-4">
                             <label
-                                className="block font-bold text-white mb-2 text-xl font-nunito"
+                                className="block  text-white mb-2 text-lg font-nunito"
                                 htmlFor="timeOfCompletion.hours"
                             >
                                 Hours
@@ -236,7 +254,7 @@ const UpdateRace = () => {
                         </div>
                         <div>
                             <label
-                                className="block font-bold text-white mb-2 text-xl font-nunito"
+                                className="block  text-white mb-2 text-lg font-nunito"
                                 htmlFor="timeOfCompletion.minutes"
                             >
                                 Minutes
@@ -268,7 +286,7 @@ const UpdateRace = () => {
                     <div className="mb-4 flex">
                         <div className="mr-4">
                             <label
-                                className="block font-bold text-white mb-2 text-xl font-nunito"
+                                className="block  text-white mb-2 text-lg font-nunito"
                                 htmlFor="location.city"
                             >
                                 City
@@ -296,7 +314,7 @@ const UpdateRace = () => {
                         </div>
                         <div>
                             <label
-                                className="block font-bold text-white mb-2 text-xl font-nunito"
+                                className="block text-white mb-2 text-lg font-nunito"
                                 htmlFor="location.state"
                             >
                                 State
@@ -327,10 +345,10 @@ const UpdateRace = () => {
                     {/* Date */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="date"
                         >
-                            Date
+                            Date of your race
                         </label>
                         <input
                             type="date"
@@ -351,7 +369,7 @@ const UpdateRace = () => {
                     {/* Submit  */}
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
+                        className="bg-9584bb text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
                     >
                         Update
                     </button>

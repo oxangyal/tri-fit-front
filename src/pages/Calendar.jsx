@@ -3,8 +3,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import React, { useEffect, useState } from "react";
 
-import RaceModal from "./RaceModal";
-import WorkoutModal from "./WorkoutModal";
+import RaceModal from "../components/RaceModal";
+import WorkoutModal from "../components/WorkoutModal";
 import axios from "axios";
 import moment from "moment";
 
@@ -128,8 +128,8 @@ const CalendarWorkouts = () => {
 
     return (
         <section className="bg-gradient-to-t from-custom-color to-blue-500 min-h-screen flex items-start justify-center font-nunito">
-            <div className="w-full max-w-4xl p-4">
-                <h2 className="text-xl font-semibold text-white mb-6">
+            <div className="w-full max-w-4xl p-4 text-white">
+                <h2 className="text-2xl font-semibold text-white mb-6">
                     Training and races
                 </h2>
                 {loading ? (

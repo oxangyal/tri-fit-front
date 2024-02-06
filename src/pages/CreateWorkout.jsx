@@ -78,13 +78,13 @@ const CreateWorkout = () => {
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
             <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
-                <h2 className="text-2xl font-bold text-white mb-8 text-center font-nunito">
+                <h2 className="text-xl font-bold text-white mb-8 text-center font-nunito">
                     Create Workout
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="workoutType"
                         >
                             Workout
@@ -114,7 +114,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="duration"
                         >
                             Duration (minutes)
@@ -142,7 +142,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="intensity"
                         >
                             Intensity
@@ -215,7 +215,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="date"
                         >
                             Date
@@ -238,7 +238,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="description"
                         >
                             Description

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import deleteIcon from "../assets/delete.png";
-import editIcon from "../assets/edit.png";
+import deleteIcon from "../assets/deleteicon.png";
+import editIcon from "../assets/editicon.png";
+import { useNavigate } from "react-router-dom";
 
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
@@ -10,6 +11,7 @@ const formatDate = (dateString) => {
 };
 
 const Races = () => {
+    const navigate = useNavigate();
     const [races, setRaces] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState({ field: "", direction: "asc" });
@@ -26,7 +28,9 @@ const Races = () => {
                             Authorization: `Bearer ${jwtToken}`,
                         },
                     }
+                    
                 );
+                console.log(response.data);
                 setRaces(response.data.races);
             } catch (error) {
                 console.error("Error fetching races:", error);
@@ -72,62 +76,62 @@ const Races = () => {
         setSortOrder({ field, direction });
     };
 
-    const handleDelete = async (raceId) => {
-        try {
-            const jwtToken = localStorage.getItem("jwtToken");
-            await axios.delete(
-                `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${jwtToken}`,
-                    },
-                }
-            );
+const handleDelete = async (race) => {
+    try {
+        const jwtToken = localStorage.getItem("jwtToken");
+        const raceId = race._id;
+        console.log(race);
+        console.log(raceId);
+        await axios.delete(
+            `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                },
+            }
+        );
+        navigate(`/activities`);
+        //    onClose();
+    } catch (error) {
+        console.error("Error deleting race:", error);
+    }
+};
 
-            setRaces((prevRaces) =>
-                prevRaces.filter((race) => race.id !== raceId)
-            );
-        } catch (error) {
-            console.error("Error deleting race:", error);
-        }
-    };
-
-    const handleEdit = (raceId) => {
-        console.log(`Editing race with ID ${raceId}`);
-    };
-
+const handleUpdate = (race) => {
+    navigate(`/races/${race._id}`);
+};
+    
     const renderRaces = () => {
         return currentRaces.map((race) => (
             <tr key={race.id}>
-                <td className="py-2 px-4 md:text-xl lg:text-2xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {race.race.charAt(0).toUpperCase() + race.race.slice(1)}
                 </td>
-                <td className="py-2 px-4 md:text-xl lg:text-2xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {race.title}
                 </td>
-                <td className="py-2 px-4 md:text-xl lg:text-2xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {race.timeOfCompletion.hours}h{" "}
                     {race.timeOfCompletion.minutes}m
                 </td>
-                <td className="py-2 px-4 md:text-xl lg:text-2xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {formatDate(race.date)}
                 </td>
-                <td className="py-2 px-4 md:text-xl lg:text-2xl text-white pt-10 pb-10 w-1/6 description-cell">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6 description-cell">
                     {race.location.city}, {race.location.state}
                 </td>
-                <td className="py-2 px-4 md:text-xl lg:text-2xl text-white pt-10 pb-10 w-1/6">
-                    {/* Add buttons or icons for actions */}
+                <td className="py-2 px-4 md:text-lg lg:text-xl pt-10 pb-10 w-1/6">
                     <img
                         src={editIcon}
                         alt="Edit"
-                        className="cursor-pointer w-6 h-6 mr-2"
-                        onClick={() => handleEdit(race.id)}
+                        className="cursor-pointer text-white w-6 h-6 mr-2 mb-4"
+                        onClick={() => handleUpdate(race)}
                     />
                     <img
                         src={deleteIcon}
                         alt="Delete"
                         className="cursor-pointer w-6 h-6"
-                        onClick={() => handleDelete(race.id)}
+                        onClick={() => handleDelete(race)}
                     />
                 </td>
             </tr>
@@ -143,72 +147,72 @@ const Races = () => {
                     <thead>
                         <tr>
                             <th
-                                className="py-2 px-4 bg-blue-500 text-white cursor-pointer"
+                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
                                 onClick={() => handleSort("race")}
                             >
                                 Race
-                                {sortOrder.field === "race" && (
+                                {/* {sortOrder.field === "race" && (
                                     <span>
                                         {sortOrder.direction === "asc"
                                             ? " ▲"
                                             : " ▼"}
                                     </span>
-                                )}
+                                )} */}
                             </th>
                             <th
-                                className="py-2 px-4 bg-blue-500 text-white cursor-pointer"
+                                className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
                                 onClick={() => handleSort("title")}
                             >
                                 Title
-                                {sortOrder.field === "title" && (
+                                {/* {sortOrder.field === "title" && (
                                     <span>
                                         {sortOrder.direction === "asc"
                                             ? " ▲"
                                             : " ▼"}
                                     </span>
-                                )}
+                                )} */}
                             </th>
                             <th
-                                className="py-2 px-4 bg-blue-500 text-white cursor-pointer"
+                                className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
                                 onClick={() => handleSort("timeOfCompletion")}
                             >
-                                Performance(Time)
-                                {sortOrder.field === "timeOfCompletion" && (
+                            Result
+                                {/* {sortOrder.field === "timeOfCompletion" && (
                                     <span>
                                         {sortOrder.direction === "asc"
                                             ? " ▲"
                                             : " ▼"}
                                     </span>
-                                )}
+                                )} */}
                             </th>
                             <th
-                                className="py-2 px-4 bg-blue-500 text-white cursor-pointer"
+                                className="py-2 px-4 bg-blue-500 text-white  text-xl cursor-pointer"
                                 onClick={() => handleSort("date")}
                             >
                                 Date
-                                {sortOrder.field === "date" && (
+                                {/* {sortOrder.field === "date" && (
                                     <span>
                                         {sortOrder.direction === "asc"
                                             ? " ▲"
                                             : " ▼"}
                                     </span>
-                                )}
+                                )} */}
                             </th>
                             <th
-                                className="py-2 px-4 bg-blue-500 text-white cursor-pointer"
+                                className="py-2 px-4 bg-blue-500 text-white  text-xl cursor-pointer"
                                 onClick={() => handleSort("location")}
                             >
                                 Location
-                                {sortOrder.field === "location" && (
+                                {/* {sortOrder.field === "location" && (
                                     <span>
                                         {sortOrder.direction === "asc"
                                             ? " ▲"
                                             : " ▼"}
                                     </span>
-                                )}
+                                )} */}
                             </th>
                             <th className="py-2 px-4 bg-blue-500 text-white">
-                                Modify
+                                _____
                             </th>
                         </tr>
                     </thead>

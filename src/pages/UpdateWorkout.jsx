@@ -7,6 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import { useFormik } from "formik";
+import closeIcon from "../assets/closeicon.png";
+
 
 const UpdateWorkout = () => {
     const { workoutId } = useParams();
@@ -113,17 +115,34 @@ const UpdateWorkout = () => {
         return <p>Loading...</p>;
     }
 
+
+    const handleClose = () => {
+        navigate("/calendar");
+    };
+
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
-            <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
+            <div className="bg-gradient-to-t from-custom-color to-custom-color2 p-8 rounded-xl shadow-md max-w-md w-full">
+                <div className="flex justify-end">
+                    <button
+                        onClick={handleClose}
+                        className="text-white text-2xl cursor-pointer"
+                    >
+                        <img
+                            src={closeIcon}
+                            alt="close icon"
+                            className="text-white text-2xl w-8 h-8"
+                        />
+                    </button>
+                </div>
                 <form onSubmit={formik.handleSubmit}>
-                    <h2 className="text-2xl font-bold text-white mb-8 text-center font-nunito">
-                        Update Workout
+                    <h2 className="text-xl font-bold text-white mb-8 text-center font-nunito">
+                        Update your workout
                     </h2>
                     {/* Workout */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="workoutType"
                         >
                             Workout
@@ -152,7 +171,7 @@ const UpdateWorkout = () => {
                     {/* Duration */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="duration"
                         >
                             Duration (minutes)
@@ -181,7 +200,7 @@ const UpdateWorkout = () => {
                     {/* Intensity */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="intensity"
                         >
                             Intensity
@@ -249,7 +268,7 @@ const UpdateWorkout = () => {
                     {/* Date */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="date"
                         >
                             Date
@@ -273,7 +292,7 @@ const UpdateWorkout = () => {
                     {/* Description */}
                     <div className="mb-4">
                         <label
-                            className="block font-bold text-white mb-2 text-xl font-nunito"
+                            className="block  text-white mb-2 text-lg font-nunito"
                             htmlFor="description"
                         >
                             Description
@@ -297,7 +316,7 @@ const UpdateWorkout = () => {
                     {/* Submit */}
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
+                        className="bg-41b1ab text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
                     >
                         Update
                     </button>

@@ -73,31 +73,49 @@ const Navbar = () => {
                             Calendar
                         </Link>
                         <Link
+                            to="/activities"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                        >
+                            Activites
+                        </Link>
+                        {/* <Link
                             to="/createworkout"
                             className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
                         >
                             Create workout
-                        </Link>
-                        <Link
+                        </Link> */}
+                        {/* <Link
                             to="/workouts"
                             className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
                         >
                             Workouts
-                        </Link>
-                        <Link
+                        </Link> */}
+                        {/* <Link
                             to="/createrace"
                             className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
                         >
                             Create race
-                        </Link>
+                        </Link> */}
 
-                        <Link
+                        {/* <Link
                             to="/races"
                             className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
                         >
                             Races
+                        </Link> */}
+                        <Link
+                            to="/create"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                        >
+                            Create
                         </Link>
 
+                        {/* <Link
+                            to="/newcalendar"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                        >
+                            New calendar
+                        </Link> */}
                         {/* <Link
                             to="/register"
                             className={`text-white text-2xl px-4 py-2 rounded ${
