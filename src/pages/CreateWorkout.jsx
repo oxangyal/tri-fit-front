@@ -60,7 +60,7 @@ const CreateWorkout = () => {
                 });
                 await new Promise((resolve) => setTimeout(resolve, 1500));
 
-                navigate("/workouts");
+                navigate("/calendar");
             } catch (error) {
                 toast.error("Error creating workout. Please try again.", {
                     position: "top-center",
@@ -104,6 +104,7 @@ const CreateWorkout = () => {
                             <option value="swim">Swim</option>
                             <option value="run">Run</option>
                             <option value="cycle">Cycle</option>
+                            <option value="yoga">Yoga</option>
                         </select>
                         {formik.touched.workoutType &&
                             formik.errors.workoutType && (

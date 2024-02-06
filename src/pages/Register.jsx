@@ -1,11 +1,13 @@
-import React from "react";
-import { useFormik } from "formik";
 import * as Yup from "yup";
-import openEyeIcon from "../assets/openeye.png";
-import closeEyeIcon from "../assets/closedeye.png";
-import { useNavigate } from "react-router-dom";
+
 import { ToastContainer, toast } from "react-toastify";
+
+import React from "react";
 import axios from "axios";
+import closeEyeIcon from "../assets/closedeye.png";
+import openEyeIcon from "../assets/openeye.png";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -55,7 +57,7 @@ const Register = () => {
                 });
 
                 console.log("Registration successful:", data);
-                navigate("/login");
+                navigate("/calendar");
             } catch (error) {
                 console.error("Error:", error);
                 toast.error(
@@ -218,6 +220,7 @@ const Register = () => {
                 >
                     Signup
                 </button>
+                
             </form>
             <ToastContainer
                 position="top-center"

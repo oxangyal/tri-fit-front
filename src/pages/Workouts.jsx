@@ -77,7 +77,7 @@ const handleDelete = async (workout) => {
                 },
             }
         );
-        navigate(`/activities`);
+        navigate(`/calendar`);
            //    onClose();
     } catch (error) {
         console.error("Error deleting workout:", error);
@@ -132,7 +132,7 @@ const handleUpdate = (workout) => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
+        <div className=" min-h-screen flex items-start justify-center">
             <div className="max-w-screen-lg mx-auto p-4">
                 <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
                     <thead>
@@ -173,8 +173,8 @@ const handleUpdate = (workout) => {
                             >
                                 Description
                             </th>
-                            <th className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer">
-                                ______
+                            <th className="py-2 px-6  bg-blue-500 text-xl text-white cursor-pointer">
+                                <span className="text-blue-500">________</span>
                             </th>
                         </tr>
                     </thead>

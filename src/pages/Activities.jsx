@@ -1,42 +1,51 @@
 import React, { useState } from "react";
-import Workouts from "./Workouts"; 
-import Races from "./Races"; 
+import Workouts from "./Workouts";
+import Races from "./Races";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const Activities = () => {
-    const [activeTab, setActiveTab] = useState("workouts");
+    const [activeTab, setActiveTab] = useState(0);
 
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
+    const handleTabChange = (index) => {
+        setActiveTab(index);
     };
 
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
             <div className="max-w-screen-lg mx-auto p-4">
-                <div className="flex mb-4">
-                    <button
-                        className={`mx-2 px-4 text-2xl py-2 rounded ${
-                            activeTab === "workouts"
-                                ? "bg-blue-500 text-white"
-                                : "bg-white text-blue-500"
-                        }`}
-                        onClick={() => handleTabChange("workouts")}
-                    >
-                        Workouts
-                    </button>
-                    <button
-                        className={`mx-2 px-4 py-2 text-2xl rounded ${
-                            activeTab === "races"
-                                ? "bg-blue-500 text-white"
-                                : "bg-white text-blue-500"
-                        }`}
-                        onClick={() => handleTabChange("races")}
-                    >
-                        Races
-                    </button>
-                </div>
+                <Tabs
+                    selectedIndex={activeTab}
+                    onSelect={(index) => handleTabChange(index)}
+                >
+                    <TabList className="flex mb-4">
+                        <Tab
+                            className={`flex-1 text-center text-2xl py-2 rounded-t-lg cursor-pointer ${
+                                activeTab === 0
+                                    ? "bg-white text-blue-500"
+                                    : "text-white"
+                            }`}
+                        >
+                            Workouts
+                        </Tab>
+                        <Tab
+                            className={`flex-1 text-center text-2xl py-2 rounded-t-lg cursor-pointer ${
+                                activeTab === 1
+                                    ? "bg-white text-blue-500"
+                                    : "text-white"
+                            }`}
+                        >
+                            Races
+                        </Tab>
+                    </TabList>
 
-                {activeTab === "workouts" && <Workouts />}
-                {activeTab === "races" && <Races />}
+                    <TabPanel>
+                        <Workouts />
+                    </TabPanel>
+                    <TabPanel>
+                        <Races />
+                    </TabPanel>
+                </Tabs>
             </div>
         </div>
     );

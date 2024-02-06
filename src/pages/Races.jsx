@@ -141,7 +141,7 @@ const handleUpdate = (race) => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
+        <div className="min-h-screen flex items-start justify-center">
             <div className="max-w-screen-lg mx-auto p-4">
                 <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
                     <thead>
@@ -176,7 +176,7 @@ const handleUpdate = (race) => {
                                 className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
                                 onClick={() => handleSort("timeOfCompletion")}
                             >
-                            Result
+                                Result
                                 {/* {sortOrder.field === "timeOfCompletion" && (
                                     <span>
                                         {sortOrder.direction === "asc"
@@ -212,7 +212,7 @@ const handleUpdate = (race) => {
                                 )} */}
                             </th>
                             <th className="py-2 px-4 bg-blue-500 text-white">
-                                _____
+                                <span className="text-blue-500">_____</span>
                             </th>
                         </tr>
                     </thead>
