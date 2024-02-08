@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 const WorkoutModal = ({ event, onClose }) => {
     const navigate = useNavigate();
-    const formattedDate = new Date(event.date).toLocaleDateString("en-US");
+
+    const formattedDate = new Date(
+         new Date(event.date).getTime() + 12 * 60 * 60 * 1000
+    ).toLocaleDateString("en-US");
 
     const handleDelete = async () => {
         try {

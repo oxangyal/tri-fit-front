@@ -36,9 +36,10 @@ const CalendarWorkouts = () => {
                     (workout) => ({
                         id: workout._id,
                         title: workout.workoutType,
-                        start: new Date(workout.date),
+                        start: moment(workout.date).add(12, "hours").toDate(),
                         end: moment(workout.date)
                             .add(workout.duration, "minutes")
+                            .add(12, "hours")
                             .toDate(),
                         duration: workout.duration,
                         intensity: workout.intensity,
@@ -53,20 +54,22 @@ const CalendarWorkouts = () => {
                     id: race._id,
                     race: race.race,
                     title: race.title,
-                    start: new Date(race.date),
+                    start: moment(race.date).add(12, "hours").toDate(), 
                     end: moment(race.date)
                         .add(race.timeOfCompletion.hours, "hours")
                         .add(race.timeOfCompletion.minutes, "minutes")
+                        .add(12, "hours")
                         .toDate(),
                     timeOfCompletion: `${race.timeOfCompletion.hours}h ${race.timeOfCompletion.minutes}m`,
                     location: `${race.location.city}, ${race.location.state}`,
                     date: race.date,
+                    description: race.description,
                     type: "race",
                 }));
 
                 // console.log(raceEvents);
 
-        setEvents([...workoutEvents, ...raceEvents]);
+                setEvents([...workoutEvents, ...raceEvents]);
                 // updateRaceData([...workoutEvents, ...raceEvents]);
             } catch (error) {
                 console.error("Error fetching events:", error);
@@ -100,7 +103,7 @@ const CalendarWorkouts = () => {
 
     const handleEventClick = (event) => {
         setSelectedEvent(event);
-        console.log(event)
+        console.log(event);
         setModalVisible(true);
     };
 
@@ -144,7 +147,7 @@ const CalendarWorkouts = () => {
                             views={["month", "week", "day"]}
                             defaultDate={new Date()}
                             defaultView="month"
-                            style={{ height: 600 }}
+                            style={{ height: 600, color: "white" }}
                             components={{
                                 event: CustomEvent,
                             }}

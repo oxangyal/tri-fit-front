@@ -16,6 +16,8 @@ const Races = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState({ field: "", direction: "asc" });
     const racesPerPage = 4;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchRaces = async () => {
@@ -32,13 +34,21 @@ const Races = () => {
                 );
                 console.log(response.data);
                 setRaces(response.data.races);
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching races:", error);
+                setError(
+                    "An error occurred while fetching races. Please try again later."
+                );
+                setLoading(false);
             }
         };
 
         fetchRaces();
     }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
     const indexOfLastRace = currentPage * racesPerPage;
     const indexOfFirstRace = indexOfLastRace - racesPerPage;
@@ -103,7 +113,7 @@ const handleUpdate = (race) => {
     
     const renderRaces = () => {
         return currentRaces.map((race) => (
-            <tr key={race.id}>
+            <tr key={race.id} className="w-1/6">
                 <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {race.race.charAt(0).toUpperCase() + race.race.slice(1)}
                 </td>
@@ -117,10 +127,13 @@ const handleUpdate = (race) => {
                 <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {formatDate(race.date)}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6 description-cell">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 description-cell">
                     {race.location.city}, {race.location.state}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6 description-cell">
+                    {race.description}
+                </td>
+                <td className="py-2 px-4 md:text-lg lg:text-xl pt-10 pb-10">
                     <img
                         src={editIcon}
                         alt="Edit"
@@ -137,6 +150,7 @@ const handleUpdate = (race) => {
             </tr>
         ));
     };
+
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -211,8 +225,14 @@ const handleUpdate = (race) => {
                                     </span>
                                 )} */}
                             </th>
+                            <th
+                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
+                                onClick={() => handleSort("description")}
+                            >
+                                Description
+                            </th>
                             <th className="py-2 px-4 bg-blue-500 text-white">
-                                <span className="text-blue-500">_____</span>
+                                <span className="text-blue-500">________</span>
                             </th>
                         </tr>
                     </thead>

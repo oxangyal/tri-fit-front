@@ -29,9 +29,7 @@ const CreateWorkout = () => {
             intensity: Yup.string(),
             indoor: Yup.boolean(),
             outdoor: Yup.boolean(),
-            date: Yup.date()
-                .min(new Date(), "Date cannot be in the past")
-                .required("Date is required"),
+            date: Yup.date(),
             description: Yup.string(),
         }),
         onSubmit: async (values) => {
@@ -104,7 +102,9 @@ const CreateWorkout = () => {
                             <option value="swim">Swim</option>
                             <option value="run">Run</option>
                             <option value="cycle">Cycle</option>
+                            <option value="strength">Strength</option>
                             <option value="yoga">Yoga</option>
+                            <option value="stretch">Stretch</option>
                         </select>
                         {formik.touched.workoutType &&
                             formik.errors.workoutType && (
@@ -251,7 +251,6 @@ const CreateWorkout = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
                             className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
-                            required
                         ></textarea>
                         {formik.touched.description &&
                             formik.errors.description && (

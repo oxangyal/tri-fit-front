@@ -5,9 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
+import closeIcon from "../assets/closeicon.png";
 import moment from "moment";
 import { useFormik } from "formik";
-import closeIcon from "../assets/closeicon.png";
 
 const UpdateRace = () => {
     const { raceId } = useParams();
@@ -27,6 +27,7 @@ const UpdateRace = () => {
                 state: "",
             },
             date: "",
+            description: "",
         },
         validationSchema: Yup.object({
             race: Yup.string().required("Race is required"),
@@ -40,10 +41,11 @@ const UpdateRace = () => {
                     .required("Minutes is required"),
             }),
             location: Yup.object({
-                city: Yup.string().required("City is required"),
-                state: Yup.string().required("State is required"),
+                city: Yup.string(),
+                state: Yup.string(),
             }),
-            date: Yup.date().required("Date is required"),
+            date: Yup.date(),
+            description: Yup.string(),
         }),
         onSubmit: async (values) => {
             try {
@@ -100,9 +102,10 @@ const UpdateRace = () => {
             const raceDetails = response.data.race;
 
             if (raceDetails) {
-                const formattedDate = moment(raceDetails.date).format(
-                    "YYYY-MM-DD"
-                );
+                const formattedDate = moment
+                    .utc(raceDetails.date)
+                    .format("YYYY-MM-DD");
+
                 formik.setValues({
                     race: raceDetails.race,
                     title: raceDetails.title,
@@ -123,6 +126,7 @@ const UpdateRace = () => {
                             : "",
                     },
                     date: formattedDate,
+                    description: raceDetails.description,
                 });
 
                 setLoading(false);
@@ -144,7 +148,7 @@ const UpdateRace = () => {
     const handleClose = () => {
         navigate("/calendar");
     };
-    
+
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
             <div className="bg-gradient-to-t from-custom-color to-custom-color3 p-8 rounded-xl shadow-md max-w-md w-full">
@@ -185,7 +189,10 @@ const UpdateRace = () => {
                             <option value="olympic">Olympic</option>
                             <option value="duathlon">Duathlon</option>
                             <option value="aquathon">Aquathon</option>
-                            <option value="full">Full</option>
+                            <option value="halfironman">Half Ironman</option>
+                            <option value="fullironman">Full Ironman</option>
+                            <option value="halfmarathon">Half Marathon</option>
+                            <option value="fullmarathon">Full Marathon</option>
                         </select>
                         {formik.touched.race && formik.errors.race && (
                             <p className="text-red-500 text-xs mt-1">
@@ -364,6 +371,28 @@ const UpdateRace = () => {
                                 {formik.errors.date}
                             </p>
                         )}
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            className="block  text-white mb-2 text-lg font-nunito"
+                            htmlFor="description"
+                        >
+                            Description
+                        </label>
+                        <textarea
+                            name="description"
+                            id="description"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.description}
+                            className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
+                        ></textarea>
+                        {formik.touched.description &&
+                            formik.errors.description && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {formik.errors.description}
+                                </p>
+                            )}
                     </div>
 
                     {/* Submit  */}

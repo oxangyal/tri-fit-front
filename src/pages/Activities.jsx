@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import Workouts from "./Workouts";
-import Races from "./Races";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+
+import React, { useState } from "react";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+
+import Races from "./Races";
+import Workouts from "./Workouts";
 
 const Activities = () => {
     const [activeTab, setActiveTab] = useState(0);

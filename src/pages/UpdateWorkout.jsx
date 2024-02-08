@@ -5,10 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
+import closeIcon from "../assets/closeicon.png";
 import moment from "moment";
 import { useFormik } from "formik";
-import closeIcon from "../assets/closeicon.png";
-
 
 const UpdateWorkout = () => {
     const { workoutId } = useParams();
@@ -47,7 +46,7 @@ const UpdateWorkout = () => {
                         },
                     }
                 );
-
+console.log((values));
                 toast.success("Your workout was successfully updated!", {
                     position: "top-center",
                     autoClose: 3000,
@@ -86,10 +85,10 @@ const UpdateWorkout = () => {
             const workoutDetails = response.data.workout;
 
             if (workoutDetails) {
-                const formattedDate = moment(workoutDetails.date).format(
-                    "YYYY-MM-DD"
-                );
-
+                const formattedDate = moment
+                    .utc(workoutDetails.date)
+                    .format("YYYY-MM-DD");
+                
                 formik.setValues({
                     workoutType: workoutDetails.workoutType,
                     duration: workoutDetails.duration,
@@ -109,7 +108,7 @@ const UpdateWorkout = () => {
 
     useEffect(() => {
         fetchWorkoutDetails();
-    }, [workoutId]);
+    }, []);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -159,6 +158,9 @@ const UpdateWorkout = () => {
                             <option value="swim">Swim</option>
                             <option value="run">Run</option>
                             <option value="cycle">Cycle</option>
+                            <option value="strength">Strength</option>
+                            <option value="yoga">Yoga</option>
+                            <option value="stretch">Stretch</option>
                         </select>
                         {formik.touched.workoutType &&
                             formik.errors.workoutType && (

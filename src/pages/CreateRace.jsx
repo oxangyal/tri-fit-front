@@ -23,21 +23,21 @@ const CreateRace = () => {
                 city: "",
                 state: "",
             },
+            description: "",
         },
         validationSchema: Yup.object({
             race: Yup.string().required("Race is required"),
             title: Yup.string().required("Title is required"),
             timeOfCompletion: Yup.object().shape({
                 hours: Yup.number().min(0),
-                minutes: Yup.number()
-                    .min(0)
-                    .max(59),
+                minutes: Yup.number().min(0).max(59),
             }),
             date: Yup.date().required("Date is required"),
             location: Yup.object().shape({
                 city: Yup.string(),
                 state: Yup.string(),
             }),
+            description: Yup.string(),
         }),
         onSubmit: async (values) => {
             try {
@@ -78,7 +78,7 @@ const CreateRace = () => {
             }
         },
     });
-
+    
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
             <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
@@ -109,8 +109,10 @@ const CreateRace = () => {
                             <option value="olympic">Olympic</option>
                             <option value="duathlon">Duathlon</option>
                             <option value="aquathon">Aquathon</option>
-                            <option value="full">Full</option>
-                            <option value="full">Full</option>
+                            <option value="halfironman">Half Ironman</option>
+                            <option value="fullironman">Full Ironman</option>
+                            <option value="halfmarathon">Half Marathon</option>
+                            <option value="fullmarathon">Full Marathon</option>
                         </select>
                         {formik.touched.race && formik.errors.race && (
                             <p className="text-red-500 text-xs mt-1">
@@ -290,7 +292,30 @@ const CreateRace = () => {
                             </p>
                         )}
                     </div>
-
+                    {/* Description */}
+                    <div className="mb-4">
+                        <label
+                            className="block  text-white mb-2 text-lg font-nunito"
+                            htmlFor="description"
+                        >
+                            Description
+                        </label>
+                        
+                        <textarea
+                            name="description"
+                            id="description"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.description}
+                            className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
+                        ></textarea>
+                        {formik.touched.description &&
+                            formik.errors.description && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {formik.errors.description}
+                                </p>
+                            )}
+                    </div>
                     <button
                         type="submit"
                         className="bg-blue-500 text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"

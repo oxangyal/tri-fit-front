@@ -16,6 +16,8 @@ const Workouts = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState("asc");
     const workoutsPerPage = 3;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
 
     
@@ -32,14 +34,23 @@ const Workouts = () => {
                     }
                 );
                 setWorkouts(response.data.workouts);
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching workouts:", error);
+                setError(
+                    "An error occurred while fetching workouts. Please try again later."
+                );
+                setLoading(false);
             }
         };
 
         fetchWorkouts();
     }, []);
 
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
+    
     const indexOfLastWorkout = currentPage * workoutsPerPage;
     const indexOfFirstWorkout = indexOfLastWorkout - workoutsPerPage;
     const currentWorkouts = workouts.slice(

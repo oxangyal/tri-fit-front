@@ -9,7 +9,12 @@ import { useNavigate } from "react-router-dom";
 
 const RaceModal = ({ event, onClose }) => {
     const navigate = useNavigate();
-    const formattedDate = new Date(event.date).toLocaleDateString("en-US");
+    // const formattedDate = new Date(event.date).toLocaleDateString("en-US");
+    const formattedDate = new Date(
+        new Date(event.date).getTime() + 12 * 60 * 60 * 1000
+    ).toLocaleDateString("en-US");
+
+    
 
     const handleDelete = async () => {
         try {
@@ -55,7 +60,7 @@ const RaceModal = ({ event, onClose }) => {
                     </p>
                     <p className="mb-2">Location: {event.location}</p>
                     <p className="mb-2">Date: {formattedDate}</p>
-
+                    <p className="mb-2">Description: {event.description}</p>
                     <div className="flex justify-between items-center mt-4">
                         <div className="flex">
                             <img

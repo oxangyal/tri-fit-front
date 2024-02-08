@@ -17,12 +17,11 @@ const About = () => {
                         {" "}
                         Tri Fit{" "}
                     </span>
-                    offers a customizable schedule that empowers you to plan and
-                    execute your training sessions strategically. It enables you
-                    to take control of your fitness journey by providing a
-                    platform to design, track, and manage your workouts
-                    effectively, ensuring a personalized and tailored
-                    experience.
+                    offers a customizable schedule that empowers you to
+                    plan and execute your training sessions strategically. Our
+                    integrated calendar allows you to seamlessly organize your
+                    workouts and  races, ensuring a well-balanced
+                    training regimen that optimizes your progress.
                 </p>
             </div>
         </section>
