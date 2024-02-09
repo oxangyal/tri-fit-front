@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 import BurgerMenuIcon from "../assets/burgermenu.png";
 import CloseIcon from "../assets/closeburger.png";
 import { Link } from "react-router-dom";
 import Logo from "../assets/triblue.png";
+import { useNavigate } from "react-router-dom";
+import { userDataContext } from "../context/userContext";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
+    const { userData, setUserData } = useContext(userDataContext); 
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
+    };
+
+
+    const handleLogout = () => {
+        localStorage.removeItem("jwtToken");
+        console.log("jwtToken");
+        setUserData({});
+        toast.success("Your profile was successfully updated.", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        });
+        
+        navigate("/");
     };
 
     return (
@@ -67,6 +89,12 @@ const Navbar = () => {
                             About
                         </Link>
                         <Link
+                            to="/create"
+                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                        >
+                            Create
+                        </Link>
+                        <Link
                             to="/calendar"
                             className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
                         >
@@ -76,68 +104,41 @@ const Navbar = () => {
                             to="/activities"
                             className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
                         >
-                            Activites
-                        </Link>
-                        {/* <Link
-                            to="/createworkout"
-                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
-                        >
-                            Create workout
-                        </Link> */}
-                        {/* <Link
-                            to="/workouts"
-                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
-                        >
-                            Workouts
-                        </Link> */}
-                        {/* <Link
-                            to="/createrace"
-                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
-                        >
-                            Create race
-                        </Link> */}
-
-                        {/* <Link
-                            to="/races"
-                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
-                        >
-                            Races
-                        </Link> */}
-                        <Link
-                            to="/create"
-                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
-                        >
-                            Create
+                            Activities
                         </Link>
 
-                        {/* <Link
-                            to="/newcalendar"
-                            className="text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
-                        >
-                            New calendar
-                        </Link> */}
-                        {/* <Link
-                            to="/register"
-                            className={`text-white text-2xl px-4 py-2 rounded ${
-                                menuOpen
-                                    ? "bg-custom-color"
-                                    : "bg-blue-600 hover:bg-blue-500"
-                            } transition duration-300`}
-                        >
-                            Signup
-                        </Link>  */}
-                        <Link
-                            to="/auth"
-                            className={`text-white text-xl px-4 py-2 font-bold rounded hover:bg-gray-700  ${
-                                menuOpen
-                                    ? "bg-custom-color"
-                                    : "bg-blue-500 hover:bg-blue-500"
-                            } transition duration-300`}
-                        >
-                            Login
-                        </Link>
+                        {userData.isLoggedIn ? (
+                            <button
+                                onClick={handleLogout}
+                                className="text-white text-xl px-4 py-2 font-bold rounded bg-red-400  hover:bg-gray-700 transition duration-300"
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <Link
+                                to="/auth"
+                                className={`text-white text-xl px-4 py-2 font-bold rounded hover:bg-gray-700  ${
+                                    menuOpen
+                                        ? "bg-custom-color"
+                                        : "bg-blue-500 hover:bg-blue-500"
+                                } transition duration-300`}
+                            >
+                                Login
+                            </Link>
+                        )}
                     </div>
                 </div>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={2000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
             </nav>
         </>
     );

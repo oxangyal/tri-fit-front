@@ -1,15 +1,17 @@
 import * as Yup from "yup";
 
+import React, {useContext} from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-import React from "react";
 import axios from "axios";
 import closeEyeIcon from "../assets/closedeye.png";
 import openEyeIcon from "../assets/openeye.png";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { userDataContext } from "../context/userContext";
 
 const Login = () => {
+    const { setUserData } = useContext(userDataContext);
     const navigate = useNavigate();
 
     const formik = useFormik({
@@ -42,20 +44,24 @@ const Login = () => {
 
                 const { token, user } = data;
                 const { userId } = user;
+                //UserContext populated
+                setUserData({ ...data, isLoggedIn: true });
+                
 
                 // Save token and userId to localStorage
                 localStorage.setItem("jwtToken", token);
                 localStorage.setItem("userId", userId);
 
                 console.log("Login successful:", data);
-                toast.success("You successfully logged in!", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                });
+                 toast.success("You successfully logged in!", {
+                     position: "top-center",
+                     autoClose: 3000,
+                     hideProgressBar: true,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                 });
+               
                 await new Promise((resolve) => setTimeout(resolve, 1500));
 
                 navigate("/calendar");
@@ -205,10 +211,10 @@ const Login = () => {
             </form>
             <ToastContainer
                 position="top-center"
-                autoClose={3000}
+                autoClose={1000}
                 hideProgressBar
                 newestOnTop={false}
-                closeOnClick
+                closeOnClick={true}
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
