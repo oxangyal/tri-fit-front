@@ -46,7 +46,7 @@ const Home = () => {
             <div className="shadow-md" style={backgroundStyles}></div>
             <div style={overlayStyles}></div>
             <div style={{ zIndex: 3 }}>
-                <div className="text-white md:text-4xl lg:text-5xl sm:text-3xl ml-auto mt-20 font-bold font-nunito">
+                <div className="text-white md:text-5xl lg:text-6xl sm:text-4xl ml-auto mt-20 font-bold font-nunito">
                     Stay fit for your upcoming triathlon events with{" "}
                     <span className="text-blue-500  md:text-3xl lg:text-5xl font-bold mb-20">
                         {" "}

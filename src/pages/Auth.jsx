@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+
+import React, { useState } from "react";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+
 import Login from "./Login";
 import Register from "./Register";
 
@@ -16,7 +18,7 @@ const Auth = () => {
                 >
                     <TabList className="flex mb-4">
                         <Tab
-                            className={`flex-1 text-center text-2xl py-2 rounded-t-lg cursor-pointer ${
+                            className={`flex-1 text-center text-xl py-2 rounded-t-lg cursor-pointer ${
                                 tabIndex === 0
                                     ? "bg-white text-blue-500"
                                     : "text-white"
@@ -25,7 +27,7 @@ const Auth = () => {
                             Login
                         </Tab>
                         <Tab
-                            className={`flex-1 text-center text-2xl  py-2 rounded-t-lg cursor-pointer ${
+                            className={`flex-1 text-center text-xl  py-2 rounded-t-lg cursor-pointer ${
                                 tabIndex === 1
                                     ? "bg-white text-blue-500"
                                     : "text-white"

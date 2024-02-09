@@ -75,14 +75,14 @@ const CreateWorkout = () => {
 
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
-            <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
-                <h2 className="text-xl font-bold text-white mb-8 text-center font-nunito">
+            <div className="bg-gradient-to-t from-custom-color to-blue-500 p-6 rounded-xl shadow-md max-w-md w-full">
+                <h2 className="text-xl font-bold text-white mb-4 text-center font-nunito">
                     Create Workout
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="workoutType"
                         >
                             Workout
@@ -93,7 +93,7 @@ const CreateWorkout = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.workoutType}
-                            className="form-input pl-3 w-full h-10 mb-5 rounded-md"
+                            className="form-input pl-3 w-full h-10 mb-3 rounded-md"
                             required
                         >
                             <option value="" disabled>
@@ -115,7 +115,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="duration"
                         >
                             Duration (minutes)
@@ -127,7 +127,7 @@ const CreateWorkout = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.duration}
-                            className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                            className={`form-input w-full pl-3 h-10 mb-3 rounded-md ${
                                 formik.touched.duration &&
                                 formik.errors.duration
                                     ? "border-red-500"
@@ -143,7 +143,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="intensity"
                         >
                             Intensity
@@ -154,8 +154,7 @@ const CreateWorkout = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.intensity}
-                            className="form-input pl-3 w-full h-10 mb-5 pr-3 rounded-md"
-                            required
+                            className="form-input pl-3 w-full h-10 mb-2 pr-3 rounded-md"
                         >
                             <option value="" disabled>
                                 Select Intensity
@@ -171,7 +170,7 @@ const CreateWorkout = () => {
                                 </p>
                             )}
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                         {/* <label
                             className="block font-bold text-white mb-2 text-xl font-nunito"
                             htmlFor="indoor"
@@ -190,7 +189,7 @@ const CreateWorkout = () => {
                         />
                         <label
                             htmlFor="indoor"
-                            className="text-white pl-3 mr-4"
+                            className="text-white pl-2 mr-4"
                         >
                             Indoor
                         </label>
@@ -205,7 +204,7 @@ const CreateWorkout = () => {
                             }
                             onBlur={formik.handleBlur}
                         />
-                        <label htmlFor="outdoor" className="text-white pl-3">
+                        <label htmlFor="outdoor" className="text-white pl-2">
                             Outdoor
                         </label>
                         {formik.touched.indoor && formik.errors.indoor && (
@@ -216,7 +215,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="date"
                         >
                             Date
@@ -228,7 +227,7 @@ const CreateWorkout = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.date}
-                            className="form-input w-full pl-3 pr-3 h-10 mb-5 rounded-md"
+                            className="form-input w-full pl-3 pr-3 h-10 mb-3 rounded-md"
                             required
                         />
                         {formik.touched.date && formik.errors.date && (
@@ -239,7 +238,7 @@ const CreateWorkout = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="description"
                         >
                             Description

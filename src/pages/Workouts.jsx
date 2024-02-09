@@ -48,8 +48,9 @@ const Workouts = () => {
     }, []);
 
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) return <div className="text-white">Loading...</div>;
+    if (error) return <div className="text-white">{error}</div>;
+
     
     const indexOfLastWorkout = currentPage * workoutsPerPage;
     const indexOfFirstWorkout = indexOfLastWorkout - workoutsPerPage;
@@ -101,7 +102,7 @@ const handleUpdate = (workout) => {
     
     const renderWorkouts = () => {
         return currentWorkouts.map((workout) => (
-            <tr key={workout.id}>
+            <tr key={workout._id}>
                 <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
                     {workout.workoutType.charAt(0).toUpperCase() +
                         workout.workoutType.slice(1)}

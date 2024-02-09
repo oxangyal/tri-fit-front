@@ -5,6 +5,13 @@ import deleteIcon from "../assets/deleteicon.png";
 import editIcon from "../assets/editicon.png";
 import { useNavigate } from "react-router-dom";
 
+// import { ToastContainer, toast } from "react-toastify";
+
+
+
+
+
+
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -41,14 +48,15 @@ const Races = () => {
                     "An error occurred while fetching races. Please try again later."
                 );
                 setLoading(false);
+                
             }
         };
 
         fetchRaces();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) return <div className="text-white">Loading...</div>;
+    if (error) return <div className="text-white">{error}</div>;
 
     const indexOfLastRace = currentPage * racesPerPage;
     const indexOfFirstRace = indexOfLastRace - racesPerPage;
@@ -155,6 +163,7 @@ const handleUpdate = (race) => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
+        <>
         <div className="min-h-screen flex items-start justify-center">
             <div className="max-w-screen-lg mx-auto p-4">
                 <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
@@ -261,6 +270,18 @@ const handleUpdate = (race) => {
                 </div>
             </div>
         </div>
+        
+        {/* <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover /> */}
+            </>
     );
 };
 

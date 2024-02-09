@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import BurgerMenuIcon from "../assets/burgermenu.png";
@@ -13,22 +13,32 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const { userData, setUserData } = useContext(userDataContext); 
 
+
+    useEffect(() => {
+
+        const jwtToken = localStorage.getItem("jwtToken");
+        if (jwtToken) {
+            setUserData({ isLoggedIn: true });
+        }
+    }, [setUserData]);
+
+    
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
-
-
     const handleLogout = () => {
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("userId");
         console.log("jwtToken");
-        setUserData({});
-        toast.success("Your profile was successfully updated.", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
+        setUserData({ isLoggedIn: false });
+        // console.log("logged out");
+        toast.success("You have successfully logged out.", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
         });
         
         navigate("/");
@@ -128,18 +138,18 @@ const Navbar = () => {
                         )}
                     </div>
                 </div>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={2000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
             </nav>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </>
     );
 };

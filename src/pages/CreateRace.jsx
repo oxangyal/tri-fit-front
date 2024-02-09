@@ -81,14 +81,14 @@ const CreateRace = () => {
     
     return (
         <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
-            <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-xl shadow-md max-w-md w-full">
-                <h2 className="text-xl font-bold text-white mb-8 text-center font-nunito">
+            <div className="bg-gradient-to-t from-custom-color to-blue-500 p-6 rounded-xl shadow-md max-w-md w-full">
+                <h2 className="text-xl font-bold text-white mb-4 text-center font-nunito">
                     Create Race
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="race"
                         >
                             Race
@@ -99,7 +99,7 @@ const CreateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.race}
-                            className="form-input pl-3 w-full h-10 mb-5 rounded-md"
+                            className="form-input pl-3 w-full h-10 mb-3 rounded-md"
                             required
                         >
                             <option value="" disabled>
@@ -123,7 +123,7 @@ const CreateRace = () => {
 
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="title"
                         >
                             Title
@@ -135,7 +135,7 @@ const CreateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.title}
-                            className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                            className={`form-input w-full pl-3 h-10 mb-3 rounded-md ${
                                 formik.touched.title && formik.errors.title
                                     ? "border-red-500"
                                     : ""
@@ -149,10 +149,10 @@ const CreateRace = () => {
                         )}
                     </div>
 
-                    <div className="mb-4 flex">
-                        <div className="mr-4">
+                    <div className="mb-1 flex">
+                        <div className="mr-7">
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md font-nunito"
                                 htmlFor="timeOfCompletion.hours"
                             >
                                 Hours
@@ -164,7 +164,7 @@ const CreateRace = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.timeOfCompletion.hours}
-                                className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                                className={`form-input w-full pl-3 h-10 mb-1 rounded-md ${
                                     formik.touched.timeOfCompletion?.hours &&
                                     formik.errors.timeOfCompletion?.hours
                                         ? "border-red-500"
@@ -181,7 +181,7 @@ const CreateRace = () => {
                         </div>
                         <div>
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md font-nunito"
                                 htmlFor="timeOfCompletion.minutes"
                             >
                                 Minutes
@@ -193,7 +193,7 @@ const CreateRace = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.timeOfCompletion.minutes}
-                                className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                                className={`form-input w-full pl-3 h-10 mb-1 rounded-md ${
                                     formik.touched.timeOfCompletion?.minutes &&
                                     formik.errors.timeOfCompletion?.minutes
                                         ? "border-red-500"
@@ -211,9 +211,9 @@ const CreateRace = () => {
                     </div>
 
                     <div className="mb-4 flex">
-                        <div className="mr-4">
+                        <div className="mr-6 mt-4">
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md font-nunito"
                                 htmlFor="location.city"
                             >
                                 City
@@ -241,7 +241,7 @@ const CreateRace = () => {
                         </div>
                         <div>
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md mt-4 font-nunito"
                                 htmlFor="location.state"
                             >
                                 State
@@ -271,7 +271,7 @@ const CreateRace = () => {
 
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="date"
                         >
                             Date of you race
@@ -295,10 +295,10 @@ const CreateRace = () => {
                     {/* Description */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="description"
                         >
-                            Description
+                            Notes
                         </label>
                         
                         <textarea
