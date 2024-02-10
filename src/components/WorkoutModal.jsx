@@ -5,17 +5,20 @@ import deleteModal from "../assets/deletemodal.png";
 import editModal from "../assets/editmodal.png";
 import { useNavigate } from "react-router-dom";
 
-const WorkoutModal = ({ event, onClose }) => {
+const WorkoutModal = ({ event, onClose, onDelete }) => {
     const navigate = useNavigate();
 
     const formattedDate = new Date(
-         new Date(event.date).getTime() + 12 * 60 * 60 * 1000
+        new Date(event.date).getTime() + 12 * 60 * 60 * 1000
     ).toLocaleDateString("en-US");
 
     const handleDelete = async () => {
         try {
+            console.log("handleDelete 10");
             const jwtToken = localStorage.getItem("jwtToken");
             const workoutId = event.id;
+            console.log("handleDelete 20");
+            console.log(event.id, event);
             await axios.delete(
                 `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/${workoutId}`,
                 {
@@ -24,7 +27,7 @@ const WorkoutModal = ({ event, onClose }) => {
                     },
                 }
             );
-
+            onDelete();
             onClose();
         } catch (error) {
             console.error("Error deleting workout:", error);

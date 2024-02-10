@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import axios from "axios";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { userDataContext } from "../context/userContext";
 
 const Login = () => {
-    const { userData, setUserData } = useContext(userDataContext);
+    const { setUserData } = useContext(userDataContext);
     const navigate = useNavigate();
 
     const formik = useFormik({
@@ -46,14 +46,13 @@ const Login = () => {
                 const { userId } = user;
                 //UserContext populated
                 setUserData({ ...data, isLoggedIn: true });
-                
 
                 // Save token and userId to localStorage
                 localStorage.setItem("jwtToken", token);
                 localStorage.setItem("userId", userId);
 
                 console.log("Login successful:", data);
-                
+
                 toast.success("You successfully logged in!", {
                     position: "top-center",
                     autoClose: 2000,
@@ -62,10 +61,10 @@ const Login = () => {
                     pauseOnHover: true,
                     draggable: true,
                 });
-            
+
                 // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-                // navigate("/calendar");
+                navigate("/calendar");
             } catch (error) {
                 console.error("Error:", error);
 
@@ -80,16 +79,17 @@ const Login = () => {
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
-                        });
+                        }
+                    );
                 }
             }
         },
     });
 
-    if (userData.isLoggedIn) {
-        navigate("/calendar");
-        return null;
-    }
+    // if (userData.isLoggedIn) {
+    //     navigate("/calendar");
+    //     return null;
+    // }
     return (
         <>
             <div className="bg-gradient-to-t from-custom-color to-blue-500 p-8 rounded-b-lg   shadow-md max-w-md w-full">

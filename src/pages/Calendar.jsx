@@ -8,12 +8,9 @@ import WorkoutModal from "../components/WorkoutModal";
 import axios from "axios";
 import moment from "moment";
 
-// import { useRaceData } from "./context/RaceDataContext";
-
 const localizer = momentLocalizer(moment);
 
 const CalendarWorkouts = () => {
-    // const { raceData, updateRaceData } = useRaceData();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
@@ -54,7 +51,7 @@ const CalendarWorkouts = () => {
                     id: race._id,
                     race: race.race,
                     title: race.title,
-                    start: moment(race.date).add(12, "hours").toDate(), 
+                    start: moment(race.date).add(12, "hours").toDate(),
                     end: moment(race.date)
                         .add(race.timeOfCompletion.hours, "hours")
                         .add(race.timeOfCompletion.minutes, "minutes")
@@ -107,6 +104,27 @@ const CalendarWorkouts = () => {
         setModalVisible(true);
     };
 
+    const handleWorkoutDelete = async () => {
+        try {
+            const workoutId = selectedEvent.id;
+            setEvents(events.filter((event) => event.id !== workoutId));
+            setModalVisible(false);
+        } catch (error) {
+            console.error("Error deleting workout:", error);
+        }
+    };
+
+    const handleRaceDelete = async () => {
+        try {
+            const raceId = selectedEvent.id;
+            setEvents(events.filter((event) => event.id !== raceId));
+            setModalVisible(false);
+            
+        } catch (error) {
+            console.error("Error deleting race:", error);
+        }
+    };
+
     const renderModal = () => {
         if (!selectedEvent) return null;
 
@@ -115,6 +133,7 @@ const CalendarWorkouts = () => {
                 <WorkoutModal
                     event={selectedEvent}
                     onClose={() => setModalVisible(false)}
+                    onDelete={handleWorkoutDelete}
                 />
             );
         } else if (selectedEvent.type === "race") {
@@ -122,6 +141,7 @@ const CalendarWorkouts = () => {
                 <RaceModal
                     event={selectedEvent}
                     onClose={() => setModalVisible(false)}
+                    onDelete={handleRaceDelete}
                 />
             );
         }

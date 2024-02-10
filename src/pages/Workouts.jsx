@@ -15,7 +15,7 @@ const Workouts = () => {
     const [workouts, setWorkouts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState("asc");
-    const workoutsPerPage = 3;
+    const workoutsPerPage = 2;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
