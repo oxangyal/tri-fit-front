@@ -1,7 +1,7 @@
 <h1>Welcome to Tri Fit</h1>
 
-<p><strong>Tri Fit</strong> stay fit for your upcoming events! <strong>Tri Fit</strong> is your ultimate
-destination for fitness and training. Whether you're a <strong> swimmer, cyclist</strong>, or <strong> a runner </strong>, we've got you covered. <strong> Join us </strong> on the journey to a healthier lifestyle and peak performance.</p>
+<p>Design your own workouts with <strong>Tri Fit</strong>
+My app is your companion in achieving your fitness goals. Tri Fit offers a customizable schedule that empowers you to plan and execute your training sessions strategically. Our integrated calendar allows you to seamlessly organize your workouts and races, ensuring a well-balanced training regimen that optimizes your progress.</p>
 
 <h1>Running the Project</h1>
 
