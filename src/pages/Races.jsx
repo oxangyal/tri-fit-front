@@ -6,12 +6,6 @@ import editIcon from "../assets/editicon.png";
 import { useNavigate } from "react-router-dom";
 
 // import { ToastContainer, toast } from "react-toastify";
-
-
-
-
-
-
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -98,8 +92,7 @@ const handleDelete = async (race) => {
     try {
         const jwtToken = localStorage.getItem("jwtToken");
         const raceId = race._id;
-        console.log(race);
-        console.log(raceId);
+
         await axios.delete(
             `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
             {
@@ -108,8 +101,11 @@ const handleDelete = async (race) => {
                 },
             }
         );
-        navigate(`/activities`);
-        //    onClose();
+        setRaces((prevRaces) => prevRaces.filter((r) => r._id !== raceId));
+        if (currentRaces.length === 1) {
+            const newPage = currentPage > 1 ? currentPage - 1 : 1;
+            setCurrentPage(newPage);
+        }
     } catch (error) {
         console.error("Error deleting race:", error);
     }
@@ -118,7 +114,7 @@ const handleDelete = async (race) => {
 const handleUpdate = (race) => {
     navigate(`/races/${race._id}`);
 };
-    
+
     const renderRaces = () => {
         return currentRaces.map((race) => (
             <tr key={race.id} className="w-1/6">

@@ -19,14 +19,12 @@ const Workouts = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
-    
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
                 const jwtToken = localStorage.getItem("jwtToken");
                 const response = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/api/v1/workouts`,
+                    `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/upcoming`,
                     {
                         headers: {
                             Authorization: `Bearer ${jwtToken}`,
@@ -73,14 +71,11 @@ const Workouts = () => {
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     };
 
-
-
 const handleDelete = async (workout) => {
     try {
         const jwtToken = localStorage.getItem("jwtToken");
         const workoutId = workout._id;
-        console.log(workout);
-        console.log(workoutId);
+
         await axios.delete(
             `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/${workoutId}`,
             {
@@ -89,8 +84,15 @@ const handleDelete = async (workout) => {
                 },
             }
         );
-        navigate(`/calendar`);
-           //    onClose();
+
+        setWorkouts((prevWorkouts) =>
+            prevWorkouts.filter((w) => w._id !== workoutId)
+        );
+
+        if (currentWorkouts.length === 1) {
+            const newPage = currentPage > 1 ? currentPage - 1 : 1;
+            setCurrentPage(newPage);
+        }
     } catch (error) {
         console.error("Error deleting workout:", error);
     }
@@ -153,7 +155,7 @@ const handleUpdate = (workout) => {
                                 className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
                                 onClick={() => handleSort("workoutType")}
                             >
-                                Workout
+                            Workout upcoming
                             </th>
                             <th
                                 className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"

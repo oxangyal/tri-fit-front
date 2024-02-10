@@ -105,6 +105,7 @@ const CreateWorkout = () => {
                             <option value="strength">Strength</option>
                             <option value="yoga">Yoga</option>
                             <option value="stretch">Stretch</option>
+                            <option value="rest">Rest</option>
                         </select>
                         {formik.touched.workoutType &&
                             formik.errors.workoutType && (
