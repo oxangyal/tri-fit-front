@@ -15,7 +15,7 @@ const Workouts = () => {
     const [workouts, setWorkouts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState("asc");
-    const workoutsPerPage = 2;
+    const workoutsPerPage = 5;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -103,27 +103,27 @@ const handleUpdate = (workout) => {
     const renderWorkouts = () => {
         return currentWorkouts.map((workout) => (
             <tr key={workout._id}>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {workout.workoutType.charAt(0).toUpperCase() +
                         workout.workoutType.slice(1)}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {workout.duration}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {workout.intensity.charAt(0).toUpperCase() +
                         workout.intensity.slice(1)}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {workout.indoor ? "Indoor" : "Outdoor"}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {formatDate(workout.date)}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6 description-cell">
+                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6 description-cell">
                     {workout.description}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md lg:text-lg pt-10 pb-10 w-1/6">
                     <img
                         src={editIcon}
                         alt="Edit"

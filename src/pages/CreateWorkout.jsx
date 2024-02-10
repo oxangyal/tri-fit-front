@@ -249,7 +249,7 @@ const CreateWorkout = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
-                            className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
+                            className="form-input pl-3 pt-2 w-full h-32  rounded-md"
                         ></textarea>
                         {formik.touched.description &&
                             formik.errors.description && (
@@ -260,9 +260,9 @@ const CreateWorkout = () => {
                     </div>
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
+                        className="bg-blue-500 text-white py-2 px-10 rounded-md font-nunito hover:opacity-55 mt-1 text-xl"
                     >
-                        Create
+                        Create Workout
                     </button>
                 </form>
                 <ToastContainer

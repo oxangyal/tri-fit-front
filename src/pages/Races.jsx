@@ -122,26 +122,26 @@ const handleUpdate = (race) => {
     const renderRaces = () => {
         return currentRaces.map((race) => (
             <tr key={race.id} className="w-1/6">
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {race.race.charAt(0).toUpperCase() + race.race.slice(1)}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {race.title}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {race.timeOfCompletion.hours}h{" "}
                     {race.timeOfCompletion.minutes}m
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6">
+                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
                     {formatDate(race.date)}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 description-cell">
+                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 description-cell">
                     {race.location.city}, {race.location.state}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl text-white pt-10 pb-10 w-1/6 description-cell">
+                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6 description-cell">
                     {race.description}
                 </td>
-                <td className="py-2 px-4 md:text-lg lg:text-xl pt-10 pb-10">
+                <td className="py-2 px-4 md:text-md lg:text-lg pt-10 pb-10">
                     <img
                         src={editIcon}
                         alt="Edit"
@@ -174,71 +174,40 @@ const handleUpdate = (race) => {
                                 onClick={() => handleSort("race")}
                             >
                                 Race
-                                {/* {sortOrder.field === "race" && (
-                                    <span>
-                                        {sortOrder.direction === "asc"
-                                            ? " ▲"
-                                            : " ▼"}
-                                    </span>
-                                )} */}
+                            
                             </th>
                             <th
                                 className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
                                 onClick={() => handleSort("title")}
                             >
                                 Title
-                                {/* {sortOrder.field === "title" && (
-                                    <span>
-                                        {sortOrder.direction === "asc"
-                                            ? " ▲"
-                                            : " ▼"}
-                                    </span>
-                                )} */}
+                                
                             </th>
                             <th
                                 className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
                                 onClick={() => handleSort("timeOfCompletion")}
                             >
                                 Result
-                                {/* {sortOrder.field === "timeOfCompletion" && (
-                                    <span>
-                                        {sortOrder.direction === "asc"
-                                            ? " ▲"
-                                            : " ▼"}
-                                    </span>
-                                )} */}
                             </th>
                             <th
                                 className="py-2 px-4 bg-blue-500 text-white  text-xl cursor-pointer"
                                 onClick={() => handleSort("date")}
                             >
                                 Date
-                                {/* {sortOrder.field === "date" && (
-                                    <span>
-                                        {sortOrder.direction === "asc"
-                                            ? " ▲"
-                                            : " ▼"}
-                                    </span>
-                                )} */}
+                                
                             </th>
                             <th
                                 className="py-2 px-4 bg-blue-500 text-white  text-xl cursor-pointer"
                                 onClick={() => handleSort("location")}
                             >
                                 Location
-                                {/* {sortOrder.field === "location" && (
-                                    <span>
-                                        {sortOrder.direction === "asc"
-                                            ? " ▲"
-                                            : " ▼"}
-                                    </span>
-                                )} */}
+                                
                             </th>
                             <th
                                 className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
                                 onClick={() => handleSort("description")}
                             >
-                                Description
+                            Notes
                             </th>
                             <th className="py-2 px-4 bg-blue-500 text-white">
                                 <span className="text-blue-500">________</span>

@@ -253,7 +253,7 @@ const CreateRace = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.location.state}
-                                className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                                className={`form-input w-full pl-3 h-10 mb-1 rounded-md ${
                                     formik.touched.location?.state &&
                                     formik.errors.location?.state
                                         ? "border-red-500"
@@ -283,7 +283,7 @@ const CreateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.date}
-                            className="form-input w-full pl-3 pr-3 h-10 mb-5 rounded-md"
+                            className="form-input w-full pl-3 pr-3 h-10 mb-1 rounded-md"
                             required
                         />
                         {formik.touched.date && formik.errors.date && (
@@ -307,7 +307,7 @@ const CreateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
-                            className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
+                            className="form-input pl-3 pt-2 w-full h-32 rounded-md"
                         ></textarea>
                         {formik.touched.description &&
                             formik.errors.description && (
@@ -318,9 +318,9 @@ const CreateRace = () => {
                     </div>
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
+                        className="bg-blue-500 text-white py-2 px-10 rounded-md font-nunito hover:opacity-55 mt-1 text-xl"
                     >
-                        Create
+                        Create Race
                     </button>
                 </form>
                 <ToastContainer

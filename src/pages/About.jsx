@@ -10,7 +10,7 @@ const About = () => {
                     alt="Roka"
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black opacity-50"></div>
+                <div className="absolute inset-0 bg-black opacity-80"></div>
             </div>
             <div className="relative z-10 flex items-center justify-center text-white">
                 <div className="max-w-7xl mx-20 text-start">
@@ -33,6 +33,32 @@ const About = () => {
                         integrated calendar allows you to seamlessly organize
                         your workouts and races, ensuring a well-balanced
                         training regimen that optimizes your progress.
+                        <br />
+                        <br />
+                        <span className="font-bold text-blue-500">
+                            Register and Sign Up.
+                        </span>
+                        <br />
+                        <br />
+                        <span className="font-bold text-blue-500">
+                            Customize Your Calendar:
+                            <br />
+                            <br />
+                        </span>{" "}
+                        Once logged in, navigate to the calendar section. Choose
+                        your preferred view: daily, weekly, or monthly.
+                        Customize your calendar by adding your workout days,
+                        rest days, and any other important races.
+                        <br />
+                        <br />
+                        <span className="font-bold text-blue-500">
+                            Design Your Own Workouts:
+                            <br />
+                            <br />
+                        </span>{" "}
+                        Create personalized workouts arranging them according to
+                        your preferences. Specify the duration, intensity, and
+                        rest intervals for each exercise.
                     </p>
                 </div>
             </div>

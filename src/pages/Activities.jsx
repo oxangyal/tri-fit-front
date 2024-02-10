@@ -40,13 +40,14 @@ const Activities = () => {
                             Races
                         </Tab>
                     </TabList>
-
-                    <TabPanel>
-                        <Workouts />
-                    </TabPanel>
-                    <TabPanel>
-                        <Races />
-                    </TabPanel>
+                    <div className="h-50  max-50">
+                        <TabPanel>
+                            <Workouts />
+                        </TabPanel>
+                        <TabPanel>
+                            <Races />
+                        </TabPanel>
+                    </div>
                 </Tabs>
             </div>
         </div>

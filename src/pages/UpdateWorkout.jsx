@@ -141,7 +141,7 @@ console.log((values));
                     {/* Workout */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block text-white mb-1 text-md font-nunito"
                             htmlFor="workoutType"
                         >
                             Workout
@@ -152,7 +152,7 @@ console.log((values));
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.workoutType}
-                            className="form-input pl-3 w-full h-10 mb-5 rounded-md"
+                            className="form-input pl-3 w-full h-10 mb-3 rounded-md"
                         >
                             <option value="" disabled></option>
                             <option value="swim">Swim</option>
@@ -173,7 +173,7 @@ console.log((values));
                     {/* Duration */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="duration"
                         >
                             Duration (minutes)
@@ -185,7 +185,7 @@ console.log((values));
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.duration}
-                            className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                            className={`form-input w-full pl-3 h-10 mb-3 rounded-md ${
                                 formik.touched.duration &&
                                 formik.errors.duration
                                     ? "border-red-500"
@@ -202,7 +202,7 @@ console.log((values));
                     {/* Intensity */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="intensity"
                         >
                             Intensity
@@ -213,7 +213,7 @@ console.log((values));
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.intensity}
-                            className="form-input pl-3 w-full h-10 mb-5 pr-3 rounded-md"
+                            className="form-input pl-3 w-full h-10 mb-3 pr-3 rounded-md"
                         >
                             <option value="" disabled></option>
                             <option value="low">Low</option>
@@ -270,7 +270,7 @@ console.log((values));
                     {/* Date */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="date"
                         >
                             Date
@@ -282,7 +282,7 @@ console.log((values));
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.date}
-                            className="form-input w-full pl-3 pr-3 h-10 mb-5 rounded-md"
+                            className="form-input w-full pl-3 pr-3 h-10 mb-3 rounded-md"
                         />
                         {formik.touched.date && formik.errors.date && (
                             <p className="text-red-500 text-xs mt-1">
@@ -294,7 +294,7 @@ console.log((values));
                     {/* Description */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="description"
                         >
                             Description
@@ -305,7 +305,7 @@ console.log((values));
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
-                            className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
+                            className="form-input pl-3 pt-2 w-full h-32 mb-1 rounded-md"
                         ></textarea>
                         {formik.touched.description &&
                             formik.errors.description && (
@@ -318,7 +318,7 @@ console.log((values));
                     {/* Submit */}
                     <button
                         type="submit"
-                        className="bg-41b1ab text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
+                        className="bg-41b1ab text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-3 text-xl"
                     >
                         Update
                     </button>

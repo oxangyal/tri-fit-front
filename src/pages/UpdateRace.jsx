@@ -171,7 +171,7 @@ const UpdateRace = () => {
                     {/* Race */}
                     <div className="mb-4">
                         <label
-                            className="block text-white mb-2 text-lg font-nunito"
+                            className="block text-white mb-1 text-md font-nunito"
                             htmlFor="race"
                         >
                             Race
@@ -182,7 +182,7 @@ const UpdateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.race}
-                            className="form-input pl-3 w-full h-10 mb-5 rounded-md"
+                            className="form-input pl-3 w-full h-10 mb-3 rounded-md"
                         >
                             <option value="" disabled></option>
                             <option value="sprint">Sprint</option>
@@ -204,7 +204,7 @@ const UpdateRace = () => {
                     {/* Title*/}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="title"
                         >
                             Title
@@ -216,7 +216,7 @@ const UpdateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.title}
-                            className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                            className={`form-input w-full pl-3 h-10 mb-3 rounded-md ${
                                 formik.touched.title && formik.errors.title
                                     ? "border-red-500"
                                     : ""
@@ -233,7 +233,7 @@ const UpdateRace = () => {
                     <div className="mb-4 flex">
                         <div className="mr-4">
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md font-nunito"
                                 htmlFor="timeOfCompletion.hours"
                             >
                                 Hours
@@ -261,7 +261,7 @@ const UpdateRace = () => {
                         </div>
                         <div>
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md font-nunito"
                                 htmlFor="timeOfCompletion.minutes"
                             >
                                 Minutes
@@ -293,7 +293,7 @@ const UpdateRace = () => {
                     <div className="mb-4 flex">
                         <div className="mr-4">
                             <label
-                                className="block  text-white mb-2 text-lg font-nunito"
+                                className="block  text-white mb-1 text-md font-nunito"
                                 htmlFor="location.city"
                             >
                                 City
@@ -305,7 +305,7 @@ const UpdateRace = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.location.city}
-                                className={`form-input w-full pl-3 h-10 mb-5 rounded-md ${
+                                className={`form-input w-full pl-3 h-10 mb-3 rounded-md ${
                                     formik.touched.location?.city &&
                                     formik.errors.location?.city
                                         ? "border-red-500"
@@ -321,7 +321,7 @@ const UpdateRace = () => {
                         </div>
                         <div>
                             <label
-                                className="block text-white mb-2 text-lg font-nunito"
+                                className="block text-white mb-1 text-md font-nunito"
                                 htmlFor="location.state"
                             >
                                 State
@@ -352,7 +352,7 @@ const UpdateRace = () => {
                     {/* Date */}
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="date"
                         >
                             Date of your race
@@ -364,7 +364,7 @@ const UpdateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.date}
-                            className="form-input w-full pl-3 pr-3 h-10 mb-5 rounded-md"
+                            className="form-input w-full pl-3 pr-3 h-10 mb-3 rounded-md"
                         />
                         {formik.touched.date && formik.errors.date && (
                             <p className="text-red-500 text-xs mt-1">
@@ -374,10 +374,10 @@ const UpdateRace = () => {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block  text-white mb-2 text-lg font-nunito"
+                            className="block  text-white mb-1 text-md font-nunito"
                             htmlFor="description"
                         >
-                            Description
+                            Notes
                         </label>
                         <textarea
                             name="description"
@@ -385,7 +385,7 @@ const UpdateRace = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
-                            className="form-input pl-3 pt-2 w-full h-32 mb-5 rounded-md"
+                            className="form-input pl-3 pt-2 w-full h-32 mb-1 rounded-md"
                         ></textarea>
                         {formik.touched.description &&
                             formik.errors.description && (
@@ -398,7 +398,7 @@ const UpdateRace = () => {
                     {/* Submit  */}
                     <button
                         type="submit"
-                        className="bg-9584bb text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-10 text-xl"
+                        className="bg-9584bb text-white py-4 px-10 rounded-md font-nunito hover:opacity-55 mt-3 text-xl"
                     >
                         Update
                     </button>
