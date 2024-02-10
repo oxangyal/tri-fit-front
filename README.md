@@ -1,7 +1,7 @@
 <h1>Welcome to Tri Fit</h1>
 
-<p>Design your own workouts with <strong>Tri Fit</strong>
-My app is your companion in achieving your fitness goals. Tri Fit offers a customizable schedule that empowers you to plan and execute your training sessions strategically. Our integrated calendar allows you to seamlessly organize your workouts and races, ensuring a well-balanced training regimen that optimizes your progress.</p>
+<p>Design your own workouts with <strong>Tri Fit.</strong>
+My app is your companion in achieving your fitness goals. Tri Fit offers a customizable schedule that empowers you to plan and execute your training sessions strategically.Tne app integrated calendar allows you to seamlessly organize your workouts and races, ensuring a well-balanced training regimen that optimizes your progress.</p>
 
 <h1>Running the Project</h1>
 
@@ -11,7 +11,7 @@ My app is your companion in achieving your fitness goals. Tri Fit offers a custo
 
   - After cloning the repo, run <b>npm install</b>
   - <b>npm run dev</b>
-  - You'll see <i>✓ Listening on Port 7500!</i> and you're all set.
+  - You'll see <i>✓ Listening on Port 5000!</i> and you're all set.
 
 - Front-end: [GitHub Repository](https://github.com/oxangyal/tri-fit-front)
   - After cloning the repo, run <b>npm install</b>
@@ -22,11 +22,8 @@ My app is your companion in achieving your fitness goals. Tri Fit offers a custo
 
 <h1>User Authentication</h1>
 
-<p>Users need to register and log in first to be able to customize workouts</p>
+<p>Users need to register and log in first to be able to customize workouts and races</p>
 
-<h1>Endpoints</h1>
-
-<p>API URL: http://localhost:7500/api/v1/</p>
 
 <h1>Schemas and Data Structure</h1>
 
@@ -48,4 +45,4 @@ Race, Title, timeOfCompletion, Location, Date, Notes
 <h1>Technologies Used</h1>
 
 <p>Front-end (React.js, Figma, Tailwind)
-Back-end (Node.js, MongoDB, Express).</p>
+Back-end (Node.js, MongoDB, Express, Postman for testing).</p>
