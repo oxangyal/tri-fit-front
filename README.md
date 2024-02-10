@@ -40,6 +40,10 @@ Name, Email, Password
 
 Workout Type, Duration, Intensity, Date, Venue (Outdoor, Indoor), Description
 </p>
+<p><b>RaceSchema</b>
+
+Race, Title, timeOfCompletion, Location, Date, Notes
+</p>
 
 <h1>Technologies Used</h1>
 
