@@ -3,7 +3,7 @@
 <p>Design your own workouts with <strong>Tri Fit.</strong>
 My app is your companion in achieving your fitness goals. Tri Fit offers a customizable schedule that empowers you to plan and execute your training sessions strategically.Tne app integrated calendar allows you to seamlessly organize your workouts and races, ensuring a well-balanced training regimen that optimizes your progress.</p>
 
-<h1>Running the Project</h1>
+<h3>Running the Project</h3>
 
 <p>I have 2 projects:
 
@@ -20,12 +20,12 @@ My app is your companion in achieving your fitness goals. Tri Fit offers a custo
 
 </p>
 
-<h1>User Authentication</h1>
+<h3>User Authentication</h3>
 
 <p>Users need to register and log in first to be able to customize workouts and races</p>
 
 
-<h1>Schemas and Data Structure</h1>
+<h3>Schemas and Data Structure</h3>
 
 <p><b>UserSchema</b>
 
@@ -42,6 +42,6 @@ Workout Type, Duration, Intensity, Date, Venue (Outdoor, Indoor), Description
 Race, Title, timeOfCompletion, Location, Date, Notes
 </p>
 
-<h1>Technologies Used</h1>
+<h3>Technologies Used</h3>
 
 <p>Front-end (React.js, Figma, Tailwind)
