@@ -1,7 +1,7 @@
 <h1>Welcome to Tri Fit</h1>
 
 <p>Design your own workouts with <strong>Tri Fit.</strong>
-My app is your companion in achieving your fitness goals. Tri Fit offers a customizable schedule that empowers you to plan and execute your training sessions strategically.Tne app integrated calendar allows you to seamlessly organize your workouts and races, ensuring a well-balanced training regimen that optimizes your progress.</p>
+My app is your companion in achieving your fitness goals. Tri Fit offers a customizable schedule that empowers you to plan and execute your training sessions strategically. Its integrated calendar allows you to seamlessly organize your workouts and races, ensuring a well-balanced training regimen that optimizes your progress.</p>
 
 <h3>Running the Project</h3>
 
