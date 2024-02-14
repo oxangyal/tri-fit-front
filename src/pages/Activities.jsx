@@ -14,24 +14,24 @@ const Activities = () => {
     };
 
     return (
-        <div className="bg-gradient-to-b from-custom-color to-blue-500 min-h-screen flex items-start justify-center">
+        <div className="bg-gradient-to-b from-custom-color to-blue-500   flex items-start justify-center">
             <div className="max-w-screen-lg mx-auto p-4">
                 <Tabs
                     selectedIndex={activeTab}
                     onSelect={(index) => handleTabChange(index)}
                 >
-                    <TabList className="flex mb-4">
+                    <TabList className="flex mb-2 flex-wrap">
                         <Tab
-                            className={`flex-1 text-center text-2xl py-2 rounded-t-lg cursor-pointer ${
+                            className={`flex-1 xl:text-xl md:text-md sm:text-sm text-center py-2 rounded-t-lg cursor-pointer ${
                                 activeTab === 0
-                                    ? "bg-white text-blue-500"
-                                    : "text-white"
+                                    ? "bg-white text-blue-500 "
+                                    : "text-white "
                             }`}
                         >
                             Workouts
                         </Tab>
                         <Tab
-                            className={`flex-1 text-center text-2xl py-2 rounded-t-lg cursor-pointer ${
+                            className={`flex-1 xl:text-xl md:text-md sm:text-sm  text-center  py-2 rounded-t-lg cursor-pointer ${
                                 activeTab === 1
                                     ? "bg-white text-blue-500"
                                     : "text-white"

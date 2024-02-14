@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import deleteIcon from "../assets/deleteicon.png";
 import editIcon from "../assets/editicon.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-// import { ToastContainer, toast } from "react-toastify";
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -15,26 +14,26 @@ const Races = () => {
     const navigate = useNavigate();
     const [races, setRaces] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [sortOrder, setSortOrder] = useState({ field: "", direction: "asc" });
-    const racesPerPage = 4;
+    const [sortOrder, setSortOrder] = useState("asc");
+    const [sortField, setSortField] = useState("date");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
         const fetchRaces = async () => {
             try {
                 const jwtToken = localStorage.getItem("jwtToken");
                 const response = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/api/v1/races`,
+                    `${process.env.REACT_APP_BASE_URL}/api/v1/races?page=${currentPage}&sortField=${sortField}&sortOrder=${sortOrder}`,
                     {
                         headers: {
                             Authorization: `Bearer ${jwtToken}`,
                         },
                     }
-                    
                 );
-                console.log(response.data);
                 setRaces(response.data.races);
+                setTotalPages(response.data.totalPages);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching races:", error);
@@ -42,211 +41,152 @@ const Races = () => {
                     "An error occurred while fetching races. Please try again later."
                 );
                 setLoading(false);
-                
             }
         };
 
         fetchRaces();
-    }, []);
+    }, [currentPage, sortOrder, sortField]);
 
-    if (loading) return <div className="text-white">Loading...</div>;
-    if (error) return <div className="text-white">{error}</div>;
-
-    const indexOfLastRace = currentPage * racesPerPage;
-    const indexOfFirstRace = indexOfLastRace - racesPerPage;
-    const currentRaces = races.slice(indexOfFirstRace, indexOfLastRace);
-
-    const handleSort = (field) => {
-        const direction =
-            sortOrder.field === field && sortOrder.direction === "asc"
-                ? "desc"
-                : "asc";
-
-        const sortedRaces = [...races].sort((a, b) => {
-            if (field === "date") {
-                const dateA = new Date(a[field]).getTime();
-                const dateB = new Date(b[field]).getTime();
-                return direction === "asc" ? dateA - dateB : dateB - dateA;
-            } else if (field === "location") {
-                const locationA = `${a.location.city}, ${a.location.state}`;
-                const locationB = `${b.location.city}, ${b.location.state}`;
-                return direction === "asc"
-                    ? locationA.localeCompare(locationB)
-                    : locationB.localeCompare(locationA);
-            } else {
-                return direction === "asc"
-                    ? a[field] > b[field]
-                        ? 1
-                        : -1
-                    : a[field] < b[field]
-                    ? 1
-                    : -1;
-            }
-        });
-
-        setRaces(sortedRaces);
-        setSortOrder({ field, direction });
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
     };
 
-const handleDelete = async (race) => {
-    try {
-        const jwtToken = localStorage.getItem("jwtToken");
-        const raceId = race._id;
-
-        await axios.delete(
-            `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                },
-            }
-        );
-        setRaces((prevRaces) => prevRaces.filter((r) => r._id !== raceId));
-        if (currentRaces.length === 1) {
-            const newPage = currentPage > 1 ? currentPage - 1 : 1;
-            setCurrentPage(newPage);
+    const renderPagination = () => {
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <button
+                    key={i}
+                    className={`bg-blue-500 text-white px-3 py-2 rounded-md ${
+                        currentPage === i ? "bg-white text-blue-800" : ""
+                    }`}
+                    onClick={() => handlePageClick(i)}
+                >
+                    {i}
+                </button>
+            );
         }
-    } catch (error) {
-        console.error("Error deleting race:", error);
-    }
-};
+        return pages;
+    };
 
-const handleUpdate = (race) => {
-    navigate(`/races/${race._id}`);
-};
+    const handleSort = (field) => {
+        if (sortField === field) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+            setSortField(field);
+            setSortOrder("asc");
+        }
+        setCurrentPage(1);
+    };
+
+    const handleDelete = async (race) => {
+        try {
+            const jwtToken = localStorage.getItem("jwtToken");
+            const raceId = race._id;
+
+            await axios.delete(
+                `${process.env.REACT_APP_BASE_URL}/api/v1/races/${raceId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${jwtToken}`,
+                    },
+                }
+            );
+
+            setRaces((prevRaces) => prevRaces.filter((r) => r._id !== raceId));
+
+            if (races.length === 1) {
+                const newPage = currentPage > 1 ? currentPage - 1 : 1;
+                setCurrentPage(newPage);
+            }
+        } catch (error) {
+            console.error("Error deleting race:", error);
+        }
+    };
+
+    const handleUpdate = (race) => {
+        navigate(`/races/${race._id}`);
+    };
 
     const renderRaces = () => {
-        return currentRaces.map((race) => (
-            <tr key={race.id} className="w-1/6">
-                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {race.race.charAt(0).toUpperCase() + race.race.slice(1)}
-                </td>
-                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {race.title}
-                </td>
-                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {race.timeOfCompletion.hours}h{" "}
-                    {race.timeOfCompletion.minutes}m
-                </td>
-                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {formatDate(race.date)}
-                </td>
-                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 description-cell">
-                    {race.location.city}, {race.location.state}
-                </td>
-                <td className="py-2 px-4 md:text-md  lg:text-lg text-white pt-10 pb-10 w-1/6 description-cell">
-                    {race.description}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg pt-10 pb-10">
+        return races.map((race) => (
+            <div
+                key={race._id}
+                className="flex items-center justify-between border-b border-gray-200 p-4"
+            >
+                <div className="w-52">
+                    <p className="text-sm text-white">
+                        {formatDate(race.date)}
+                    </p>
+                    <p className="text-md text-white font-semibold">
+                        {race.title}
+                    </p>
+                    <p className="text-md text-white ">
+                        {race.timeOfCompletion.hours}h{" "}
+                        {race.timeOfCompletion.minutes}m
+                    </p>
+                    <p className="text-md text-white ">
+                        {race.location.city}, {race.location.state}
+                    </p>
+                    <div className="w-36">
+                        <p className="text-sm text-white mr-2">
+                            {race.description}
+                        </p>
+                    </div>
+                </div>
+                <div className="flex gap-1 pl-2">
+                    {/* Edit and Delete icons */}
                     <img
                         src={editIcon}
                         alt="Edit"
-                        className="cursor-pointer text-white w-6 h-6 mr-2 mb-4"
+                        className="cursor-pointer w-4 h-4"
                         onClick={() => handleUpdate(race)}
                     />
                     <img
                         src={deleteIcon}
                         alt="Delete"
-                        className="cursor-pointer w-6 h-6"
+                        className="cursor-pointer w-4 h-4"
                         onClick={() => handleDelete(race)}
                     />
-                </td>
-            </tr>
+                </div>
+            </div>
         ));
     };
 
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
     return (
-        <>
         <div className="min-h-screen flex items-start justify-center">
-            <div className="max-w-screen-lg mx-auto p-4">
-                <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
-                    <thead>
-                        <tr>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("race")}
-                            >
-                                Race
-                            
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
-                                onClick={() => handleSort("title")}
-                            >
-                                Title
-                                
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-white text-xl cursor-pointer"
-                                onClick={() => handleSort("timeOfCompletion")}
-                            >
-                                Result
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-white  text-xl cursor-pointer"
-                                onClick={() => handleSort("date")}
-                            >
-                                Date
-                                
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-white  text-xl cursor-pointer"
-                                onClick={() => handleSort("location")}
-                            >
-                                Location
-                                
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("description")}
-                            >
-                            Notes
-                            </th>
-                            <th className="py-2 px-4 bg-blue-500 text-white">
-                                <span className="text-blue-500">________</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>{renderRaces()}</tbody>
-                </table>
-                {/* Pagination */}
-                <div className="flex items-center justify-center mt-4">
-                    {Array.from(
-                        {
-                            length: Math.ceil(races.length / racesPerPage),
-                        },
-                        (_, i) => (
-                            <button
-                                key={i + 1}
-                                className={`mx-1 px-3 py-1 rounded ${
-                                    i + 1 === currentPage
-                                        ? "bg-blue-500 text-white"
-                                        : "bg-white text-blue-500"
-                                }`}
-                                onClick={() => paginate(i + 1)}
-                            >
-                                {i + 1}
-                            </button>
-                        )
-                    )}
+            <div className="w-96 mx-auto p-4">
+                <div className="flex justify-center gap-5 items-center mb-4">
+                    {/* Button to sort races by date */}
+                    <button
+                        className="bg-blue-500 text-white px-4 sm:text-sm:px-0 md:text-md lg:text-lg py-2 rounded-md"
+                        onClick={() => handleSort("date")}
+                    >
+                        Sort by Date
+                    </button>
+                    {/* Button to sort races by race type */}
+                    <button
+                        className="bg-blue-500 text-white px-4 sm:text-sm:px-0 md:text-md lg:text-lg py-2 rounded-md"
+                        onClick={() => handleSort("timeOfCompletion")}
+                    >
+                        Sort by Performance
+                    </button>
                 </div>
+                {/* Render races */}
+                {loading ? (
+                    <div className="text-white">Loading...</div>
+                ) : error ? (
+                    <div className="text-white">{error}</div>
+                ) : (
+                    <div>
+                        {renderRaces()}
+                        <div className="flex justify-center mt-4">
+                            {renderPagination()}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
-        
-        {/* <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar
-                newestOnTop={false}
-                closeOnClick={true}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover /> */}
-            </>
     );
 };
 

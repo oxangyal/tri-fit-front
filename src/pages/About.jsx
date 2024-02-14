@@ -14,14 +14,14 @@ const About = () => {
             </div>
             <div className="relative z-10 flex items-center justify-center text-white">
                 <div className="max-w-7xl mx-20 text-start">
-                    <h2 className="text-m md:text-3xl lg:text-4xl font-bold mb-8 text-white font-nunito">
+                    <h2 className="text-m md:text-3xl lg:text-4xl sm:text-sm font-bold mb-8 text-white font-nunito">
                         Design your own workouts with{" "}
                         <span className="text-blue-600 text-2xl md:text-5xl lg:text-6xl font-bold mb-4  font-nunito">
                             {" "}
                             Tri Fit{" "}
                         </span>
                     </h2>
-                    <p className="text-white text-2xl md:text-4xl lg:text-2xl mb-6 font-nunito">
+                    <p className="text-white md:text-xl lg:text-2xl sm:text-sm mb-6 font-nunito">
                         Our app is your companion in achieving your fitness
                         goals.{" "}
                         <span className="md:text-xl lg:text-3xl font-bold mb-4 text-blue-500 font-nunito">

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import deleteIcon from "../assets/deleteicon.png";
 import editIcon from "../assets/editicon.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
@@ -15,16 +15,17 @@ const Workouts = () => {
     const [workouts, setWorkouts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState("asc");
-    const workoutsPerPage = 5;
+    const [sortField, setSortField] = useState("date");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
                 const jwtToken = localStorage.getItem("jwtToken");
                 const response = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/upcoming`,
+                    `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/upcoming?page=${currentPage}&sortField=${sortField}&sortOrder=${sortOrder}`,
                     {
                         headers: {
                             Authorization: `Bearer ${jwtToken}`,
@@ -32,6 +33,7 @@ const Workouts = () => {
                     }
                 );
                 setWorkouts(response.data.workouts);
+                setTotalPages(response.data.totalPages);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching workouts:", error);
@@ -41,182 +43,161 @@ const Workouts = () => {
                 setLoading(false);
             }
         };
+        console.log(currentPage, sortOrder);
 
         fetchWorkouts();
-    }, []);
+    }, [currentPage, sortOrder, sortField]);
 
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
+    };
 
-    if (loading) return <div className="text-white">Loading...</div>;
-    if (error) return <div className="text-white">{error}</div>;
-
-    
-    const indexOfLastWorkout = currentPage * workoutsPerPage;
-    const indexOfFirstWorkout = indexOfLastWorkout - workoutsPerPage;
-    const currentWorkouts = workouts.slice(
-        indexOfFirstWorkout,
-        indexOfLastWorkout
-    );
+    const renderPagination = () => {
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <button
+                    key={i}
+                    className={`bg-blue-500 text-white px-3 py-2 rounded-md ${
+                        currentPage === i ? "bg-white text-blue-800" : ""
+                    }`}
+                    onClick={() => handlePageClick(i)}
+                >
+                    {i}
+                </button>
+            );
+        }
+        return pages;
+    };
 
     const handleSort = (field) => {
-        const sortedWorkouts = [...workouts];
-        sortedWorkouts.sort((a, b) => {
-            if (sortOrder === "asc") {
-                return a[field] > b[field] ? 1 : -1;
-            } else {
-                return a[field] < b[field] ? 1 : -1;
-            }
-        });
-
-        setWorkouts(sortedWorkouts);
-        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    };
-
-const handleDelete = async (workout) => {
-    try {
-        const jwtToken = localStorage.getItem("jwtToken");
-        const workoutId = workout._id;
-
-        await axios.delete(
-            `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/${workoutId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                },
-            }
-        );
-
-        setWorkouts((prevWorkouts) =>
-            prevWorkouts.filter((w) => w._id !== workoutId)
-        );
-
-        if (currentWorkouts.length === 1) {
-            const newPage = currentPage > 1 ? currentPage - 1 : 1;
-            setCurrentPage(newPage);
+        console.log("handleSort: field: " + field);
+        if (sortField === field) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+            console.log("handleSort: change order: " + sortOrder);
+        } else {
+            setSortField(field);
+            setSortOrder("asc");
+            console.log(
+                "handleSort: change field: " +
+                    sortField +
+                    ", order: " +
+                    sortOrder
+            );
         }
-    } catch (error) {
-        console.error("Error deleting workout:", error);
-    }
-};
-
-const handleUpdate = (workout) => {
-    navigate(`/workouts/${workout._id}`);
+        setCurrentPage(1);
     };
-    
+
+    const handleDelete = async (workout) => {
+        try {
+            const jwtToken = localStorage.getItem("jwtToken");
+            const workoutId = workout._id;
+
+            await axios.delete(
+                `${process.env.REACT_APP_BASE_URL}/api/v1/workouts/${workoutId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${jwtToken}`,
+                    },
+                }
+            );
+
+            setWorkouts((prevWorkouts) =>
+                prevWorkouts.filter((w) => w._id !== workoutId)
+            );
+
+            if (workouts.length === 1) {
+                const newPage = currentPage > 1 ? currentPage - 1 : 1;
+                setCurrentPage(newPage);
+            }
+        } catch (error) {
+            console.error("Error deleting workout:", error);
+        }
+    };
+
+    const handleUpdate = (workout) => {
+        navigate(`/workouts/${workout._id}`);
+    };
+
     const renderWorkouts = () => {
-        return currentWorkouts.map((workout) => (
-            <tr key={workout._id}>
-                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {workout.workoutType.charAt(0).toUpperCase() +
-                        workout.workoutType.slice(1)}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {workout.duration}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {workout.intensity.charAt(0).toUpperCase() +
-                        workout.intensity.slice(1)}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {workout.indoor ? "Indoor" : "Outdoor"}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6">
-                    {formatDate(workout.date)}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg text-white pt-10 pb-10 w-1/6 description-cell">
-                    {workout.description}
-                </td>
-                <td className="py-2 px-4 md:text-md lg:text-lg pt-10 pb-10 w-1/6">
+        return workouts.map((workout) => (
+            <div
+                key={workout._id}
+                className="flex items-center justify-between border-b border-gray-200 p-4"
+            >
+                <div className="lg:w-96 md:w-52 sm:w-28">
+                    <p className="text-sm text-white">
+                        {formatDate(workout.date)}
+                    </p>
+                    <p className="text-md text-white font-semibold">
+                        {workout.workoutType.charAt(0).toUpperCase() +
+                            workout.workoutType.slice(1)}
+                    </p>
+                    <div className="w-36">
+                        <p className="text-sm text-white mr-2">
+                            {workout.duration} minutes
+                        </p>
+                    </div>
+                    <p className="text-sm text-white mr-2">
+                        {workout.intensity.charAt(0).toUpperCase() +
+                            workout.intensity.slice(1)}
+                    </p>
+
+                    <p className="text-sm text-white mr-2 ">
+                        {workout.indoor ? "Indoor" : "Outdoor"}
+                    </p>
+                    <p className="text-sm text-white">{workout.description}</p>
+                </div>
+                <div className="flex gap-1 pl-2">
+                    {/* Edit and Delete icons */}
                     <img
                         src={editIcon}
                         alt="Edit"
-                        className="cursor-pointer text-white w-6 h-6 mr-2 mb-4"
+                        className="cursor-pointer w-4 h-4"
                         onClick={() => handleUpdate(workout)}
                     />
                     <img
                         src={deleteIcon}
                         alt="Delete"
-                        className="cursor-pointer w-6 h-6"
+                        className="cursor-pointer w-4 h-4"
                         onClick={() => handleDelete(workout)}
                     />
-                </td>
-            </tr>
+                </div>
+            </div>
         ));
     };
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
     return (
-        <div className=" min-h-screen flex items-start justify-center">
-            <div className="max-w-screen-lg mx-auto p-4">
-                <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
-                    <thead>
-                        <tr>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("workoutType")}
-                            >
-                            Workout upcoming
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("duration")}
-                            >
-                                Duration (minutes)
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("intensity")}
-                            >
-                                Intensity
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("indoor")}
-                            >
-                                Venue
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("date")}
-                            >
-                                Date
-                            </th>
-                            <th
-                                className="py-2 px-4 bg-blue-500 text-xl text-white cursor-pointer"
-                                onClick={() => handleSort("description")}
-                            >
-                                Description
-                            </th>
-                            <th className="py-2 px-6  bg-blue-500 text-xl text-white cursor-pointer">
-                                <span className="text-blue-500">________</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>{renderWorkouts()}</tbody>
-                </table>
-                {/* Pagination */}
-                <div className="flex items-center justify-center mt-4">
-                    {Array.from(
-                        {
-                            length: Math.ceil(
-                                workouts.length / workoutsPerPage
-                            ),
-                        },
-                        (_, i) => (
-                            <button
-                                key={i + 1}
-                                className={`mx-1 px-3 py-1 rounded ${
-                                    i + 1 === currentPage
-                                        ? "bg-blue-500 text-white"
-                                        : "bg-white text-blue-500"
-                                }`}
-                                onClick={() => paginate(i + 1)}
-                            >
-                                {i + 1}
-                            </button>
-                        )
-                    )}
+        <div className="min-h-screen flex items-start justify-center" >
+            <div className="w-96 mx-auto p-4" >
+                <div className="flex justify-center gap-5 items-center mb-4">
+                    {/* Button to sort workout by upcoming date */}
+                    <button
+                        className="bg-blue-500 text-white px-4 sm:text-sm:px-0 md:text-md lg:text-lg py-2 rounded-md"
+                        onClick={() => handleSort("date")}
+                    >
+                        Sort by Date
+                    </button>
+                    {/* Button to sort workouts by duration */}
+                    <button
+                        className="bg-blue-500 text-white px-6 py-2 sm:text-sm:px-0 md:text-md lg:text-lg rounded-md"
+                        onClick={() => handleSort("duration")}
+                    >
+                        Sort by Duration
+                    </button>
                 </div>
+                {/* Render workouts */}
+                {loading ? (
+                    <div className="text-white">Loading...</div>
+                ) : error ? (
+                    <div className="text-white">{error}</div>
+                ) : (
+                    <div>
+                        {renderWorkouts()}
+                        <div className="flex justify-center mt-4">
+                            {renderPagination()}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
