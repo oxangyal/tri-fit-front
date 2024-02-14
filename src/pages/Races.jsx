@@ -25,7 +25,7 @@ const Races = () => {
             try {
                 const jwtToken = localStorage.getItem("jwtToken");
                 const response = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/api/v1/races?page=${currentPage}&sortField=${sortField}&sortOrder=${sortOrder}`,
+                    `${process.env.REACT_APP_BASE_URL}/api/v1/races/list?page=${currentPage}&sortField=${sortField}&sortOrder=${sortOrder}`,
                     {
                         headers: {
                             Authorization: `Bearer ${jwtToken}`,
