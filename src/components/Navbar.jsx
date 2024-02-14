@@ -11,18 +11,15 @@ import { userDataContext } from "../context/userContext";
 const Navbar = () => {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
-    const { userData, setUserData } = useContext(userDataContext); 
-
+    const { userData, setUserData } = useContext(userDataContext);
 
     useEffect(() => {
-
         const jwtToken = localStorage.getItem("jwtToken");
         if (jwtToken) {
             setUserData({ isLoggedIn: true });
         }
     }, [setUserData]);
 
-    
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
@@ -40,7 +37,7 @@ const Navbar = () => {
             pauseOnHover: true,
             draggable: true,
         });
-        
+
         navigate("/");
     };
 
@@ -69,7 +66,7 @@ const Navbar = () => {
                                 <img
                                     src={CloseIcon}
                                     alt="Close icon"
-                                    className="w-6 h-6"
+                                    className="w-6 h-6 absolute top-0 right-0 m-4"
                                 />
                             ) : (
                                 <img
@@ -80,11 +77,7 @@ const Navbar = () => {
                             )}
                         </button>
                     </div>
-                    <div
-                        className={`lg:flex space-x-4 ${
-                            menuOpen ? "flex flex-col" : "hidden"
-                        }`}
-                    >
+                    <div className="hidden lg:flex space-x-4">
                         {/* Show on large screens and mobile */}
                         <Link
                             to="/"
@@ -139,6 +132,67 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
+            <div
+                className={`lg:hidden bg-151c1e text-white text-base p-4 font-nunito ${
+                    menuOpen ? "block" : "hidden"
+                } flex flex-col justify-center items-center`}
+                style={{
+                    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+                    borderBottom: "1px solid white",
+                }}
+            >
+                {/* Show on small screens when menu is open */}
+                <Link
+                    to="/"
+                    className="block text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                >
+                    Home
+                </Link>
+                <Link
+                    to="/about"
+                    className="block text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                >
+                    About
+                </Link>
+                <Link
+                    to="/create"
+                    className="block text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                >
+                    Create
+                </Link>
+                <Link
+                    to="/calendar"
+                    className="block text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                >
+                    Calendar
+                </Link>
+                <Link
+                    to="/activities"
+                    className="block text-white text-xl px-4 py-2 rounded bg-151c1e hover:bg-gray-700 transition duration-300"
+                >
+                    Activities
+                </Link>
+
+                {userData.isLoggedIn ? (
+                    <button
+                        onClick={handleLogout}
+                        className="block text-white text-xl px-4 py-2 font-bold rounded bg-red-400  hover:bg-gray-700 transition duration-300"
+                    >
+                        Logout
+                    </button>
+                ) : (
+                    <Link
+                        to="/auth"
+                        className={`block text-white text-xl px-4 py-2 font-bold rounded hover:bg-gray-700  ${
+                            menuOpen
+                                ? "bg-custom-color"
+                                : "bg-blue-500 hover:bg-blue-500"
+                        } transition duration-300`}
+                    >
+                        Login
+                    </Link>
+                )}
+            </div>
             <ToastContainer
                 position="top-center"
                 autoClose={2000}
