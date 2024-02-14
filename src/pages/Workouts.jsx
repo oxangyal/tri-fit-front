@@ -52,23 +52,26 @@ const Workouts = () => {
         setCurrentPage(page);
     };
 
-    const renderPagination = () => {
-        const pages = [];
-        for (let i = 1; i <= totalPages; i++) {
-            pages.push(
-                <button
-                    key={i}
-                    className={`bg-blue-500 text-white px-3 py-2 rounded-md ${
-                        currentPage === i ? "bg-white text-blue-800" : ""
-                    }`}
-                    onClick={() => handlePageClick(i)}
-                >
-                    {i}
-                </button>
-            );
-        }
-        return pages;
-    };
+const renderPagination = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(
+            <button
+                key={i}
+                className={`text-blue px-3 py-2 rounded-md ${
+                    currentPage === i
+                        ? "bg-white text-blue"
+                        : "bg-blue text-white"
+                }`}
+                onClick={() => handlePageClick(i)}
+            >
+                {i}
+            </button>
+        );
+    }
+    return pages;
+};
+
 
     const handleSort = (field) => {
         console.log("handleSort: field: " + field);

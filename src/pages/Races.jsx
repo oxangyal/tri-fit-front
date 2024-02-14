@@ -57,8 +57,10 @@ const Races = () => {
             pages.push(
                 <button
                     key={i}
-                    className={`bg-blue-500 text-white px-3 py-2 rounded-md ${
-                        currentPage === i ? "bg-white text-blue-800" : ""
+                    className={`text-blue px-3 py-2 rounded-md ${
+                        currentPage === i
+                            ? "bg-white text-blue"
+                            : "bg-blue text-white"
                     }`}
                     onClick={() => handlePageClick(i)}
                 >
@@ -68,7 +70,7 @@ const Races = () => {
         }
         return pages;
     };
-
+    
     const handleSort = (field) => {
         if (sortField === field) {
             setSortOrder(sortOrder === "asc" ? "desc" : "asc");
